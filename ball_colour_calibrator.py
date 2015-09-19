@@ -4,7 +4,7 @@ import cv2
 def nothing(x):
 	pass
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 
 cv2.namedWindow('image')
@@ -17,7 +17,7 @@ cv2.createTrackbar('S_top','image',0,255,nothing)
 cv2.createTrackbar('V_low','image',0,255,nothing)
 cv2.createTrackbar('V_top','image',0,255,nothing)
 
-file = open('slider_positions.txt', 'r')
+file = open('Ball_Slider_Positions.txt', 'r')
 
 cv2.setTrackbarPos('H_low', 'image', int(file.readline()))
 cv2.setTrackbarPos('H_top', 'image', int(file.readline()))
@@ -26,22 +26,11 @@ cv2.setTrackbarPos('S_top', 'image', int(file.readline()))
 cv2.setTrackbarPos('V_low', 'image', int(file.readline()))
 cv2.setTrackbarPos('V_top', 'image', int(file.readline()))
 
-kernel = np.ones((5,5),np.uint8)
+kernel = np.ones((10, 10), np.uint8)
 
 while(True):
 	# Capture frame-by-frame
 	ret, frame = cap.read()
-
-	'''
-	if cv2.waitKey(1) & 0xFF == ord('m'):
-		mirrored = cv2.flip(frame, 1)
-	elif cv2.waitKey(1) & 0xFF == ord('n'):
-		mirrored = cv2.flip(frame, 0)
-	elif cv2.waitKey(1) & 0xFF == ord('b'):
-		mirrored = cv2.flip(frame, 2)
-	else:
-		mirrored = frame
-	'''
 
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -52,26 +41,27 @@ while(True):
 	V_low = cv2.getTrackbarPos('V_low', 'image')
 	V_top = cv2.getTrackbarPos('V_top', 'image')
 
-	# ret, thresh = cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)
-
 	lower_colour = np.array([H_low, S_low, V_low])
 	upper_colour = np.array([H_top, S_top, V_top])
 
 	mask = cv2.inRange(hsv, lower_colour, upper_colour)
 
-	# Set up the detector with default parameters.
+	closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+	opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
+
+	# Set up the detector with parameters.
 	params = cv2.SimpleBlobDetector_Params()
 	params.blobColor = 255
 	params.minThreshold = 40
 	params.maxThreshold = 60
 	params.thresholdStep = 5
 
+	params.maxArea = 20000
 	params.minArea = 100
+
+	params.maxConvexity = 10
 	params.minConvexity = 0.3
 	params.minInertiaRatio = 0.01
-
-	params.maxArea = 20000
-	params.maxConvexity = 10
 
 	params.filterByColor = True
 	params.filterByCircularity = False
@@ -79,23 +69,20 @@ while(True):
 	detector = cv2.SimpleBlobDetector_create(params)
 
 	# Detect blobs.
-	keypoints = detector.detect(mask)
+	keypoints = detector.detect(opening)
 
 	# Draw detected blobs as red circles.
 	# cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
-	img_with_keypoints = cv2.drawKeypoints(mask, keypoints, np.array([]), (0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-
-	opening = cv2.morphologyEx(img_with_keypoints, cv2.MORPH_OPEN, kernel)
-	closing = cv2.morphologyEx(img_with_keypoints, cv2.MORPH_CLOSE, kernel)
+	img_with_keypoints = cv2.drawKeypoints(opening, keypoints, np.array([]), (0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 	# Display the resulting frame
-	cv2.imshow('frame', mask)
-	cv2.imshow('keypoints', img_with_keypoints)
-	cv2.imshow('opening', opening)
-	cv2.imshow('closing', closing)
+	#cv2.imshow('frame', mask)
+	#cv2.imshow('keypoints', img_with_keypoints)
+	#cv2.imshow('opening', opening)
+	cv2.imshow('Video', img_with_keypoints)
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
-		file = open("slider_positions.txt", "w")
+		file = open("Ball_Slider_Positions.txt", "w")
 		file.write(str(H_low) + "\n")
 		file.write(str(H_top) + "\n")
 		file.write(str(S_low) + "\n")
