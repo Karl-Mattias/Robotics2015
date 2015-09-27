@@ -1,11 +1,18 @@
 ﻿import numpy as np
+from settings import BoltSettings
 import cv2
+import sys
 
+#Load Global Settings
+st = BoltSettings()
+settingsDict = st.readDict()
+opg = settingsDict['opponent_goal_color'] #Getting the opponents goal post color
+
+#Main Module Begins Here
 def nothing(x):
 	pass
 
-cap = cv2.VideoCapture(1)
-
+cap = cv2.VideoCapture(0)
 
 cv2.namedWindow('image')
 
@@ -17,14 +24,14 @@ cv2.createTrackbar('S_top','image',0,255,nothing)
 cv2.createTrackbar('V_low','image',0,255,nothing)
 cv2.createTrackbar('V_top','image',0,255,nothing)
 
-file = open('Ball_Slider_Positions.txt', 'r')
+#file = open('Ball_Slider_Positions.txt', 'r')
 
-cv2.setTrackbarPos('H_low', 'image', int(file.readline()))
-cv2.setTrackbarPos('H_top', 'image', int(file.readline()))
-cv2.setTrackbarPos('S_low', 'image', int(file.readline()))
-cv2.setTrackbarPos('S_top', 'image', int(file.readline()))
-cv2.setTrackbarPos('V_low', 'image', int(file.readline()))
-cv2.setTrackbarPos('V_top', 'image', int(file.readline()))
+cv2.setTrackbarPos('H_low', 'image', int(settingsDict['H_low_'+opg]))
+cv2.setTrackbarPos('H_top', 'image', int(settingsDict['H_top_'+opg]))
+cv2.setTrackbarPos('S_low', 'image', int(settingsDict['S_low_'+opg]))
+cv2.setTrackbarPos('S_top', 'image', int(settingsDict['S_top_'+opg]))
+cv2.setTrackbarPos('V_low', 'image', int(settingsDict['V_low_'+opg]))
+cv2.setTrackbarPos('V_top', 'image', int(settingsDict['V_top_'+opg]))
 
 kernel = np.ones((10, 10), np.uint8)
 
@@ -49,6 +56,7 @@ while(True):
 	closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 	opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
+    
 	# Set up the detector with parameters.
 	params = cv2.SimpleBlobDetector_Params()
 	params.blobColor = 255
@@ -81,6 +89,7 @@ while(True):
 	#cv2.imshow('opening', opening)
 	cv2.imshow('Video', img_with_keypoints)
 
+	'''
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		file = open("Ball_Slider_Positions.txt", "w")
 		file.write(str(H_low) + "\n")
@@ -91,7 +100,7 @@ while(True):
 		file.write(str(V_top) + "\n")
 		file.close()
 		break
-
+	'''
 
 
 # When everything done, release the capture
