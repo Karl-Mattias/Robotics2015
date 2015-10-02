@@ -3,39 +3,43 @@ from settings import BoltSettings
 import cv2
 import sys
 
-#Load Global Settings
+# Load Global Settings
 st = BoltSettings()
-settingsDict = st.readDict()
-opg = settingsDict['opponent_goal_color'] #Getting the opponents goal post color
+settingsDict = st.read_dict()
+opg = settingsDict['own_goal_color']  # Getting the opponents goal post color
 
-#Main Module Begins Here
+
+# Main Module Begins Here
 def nothing(x):
 	pass
 
-cap = cv2.VideoCapture(0)
+
+cap = cv2.VideoCapture(1)
 
 cv2.namedWindow('image')
 
 # create trackbars for color change
-cv2.createTrackbar('H_low','image',0,255,nothing)
-cv2.createTrackbar('H_top','image',0,255,nothing)
-cv2.createTrackbar('S_low','image',0,255,nothing)
-cv2.createTrackbar('S_top','image',0,255,nothing)
-cv2.createTrackbar('V_low','image',0,255,nothing)
-cv2.createTrackbar('V_top','image',0,255,nothing)
+cv2.createTrackbar('H_low', 'image', 0, 255, nothing)
+cv2.createTrackbar('H_top', 'image', 0, 255, nothing)
+cv2.createTrackbar('S_low', 'image', 0, 255, nothing)
+cv2.createTrackbar('S_top', 'image', 0, 255, nothing)
+cv2.createTrackbar('V_low', 'image', 0, 255, nothing)
+cv2.createTrackbar('V_top', 'image', 0, 255, nothing)
 
-#file = open('Ball_Slider_Positions.txt', 'r')
+# file = open('Blue_Slider_Positions.txt', 'r')
 
-cv2.setTrackbarPos('H_low', 'image', int(settingsDict['H_low_'+opg]))
-cv2.setTrackbarPos('H_top', 'image', int(settingsDict['H_top_'+opg]))
-cv2.setTrackbarPos('S_low', 'image', int(settingsDict['S_low_'+opg]))
-cv2.setTrackbarPos('S_top', 'image', int(settingsDict['S_top_'+opg]))
-cv2.setTrackbarPos('V_low', 'image', int(settingsDict['V_low_'+opg]))
-cv2.setTrackbarPos('V_top', 'image', int(settingsDict['V_top_'+opg]))
+cv2.setTrackbarPos('H_low', 'image', int(settingsDict['H_low_' + opg]))
+cv2.setTrackbarPos('H_top', 'image', int(settingsDict['H_top_' + opg]))
+cv2.setTrackbarPos('S_low', 'image', int(settingsDict['S_low_' + opg]))
+cv2.setTrackbarPos('S_top', 'image', int(settingsDict['S_top_' + opg]))
+cv2.setTrackbarPos('V_low', 'image', int(settingsDict['V_low_' + opg]))
+cv2.setTrackbarPos('V_top', 'image', int(settingsDict['V_top_' + opg]))
+
+cv2.resizeWindow("image", 600, 300)
 
 kernel = np.ones((10, 10), np.uint8)
 
-while(True):
+while True:
 	# Capture frame-by-frame
 	ret, frame = cap.read()
 
@@ -56,7 +60,7 @@ while(True):
 	closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 	opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
-    
+
 	# Set up the detector with parameters.
 	params = cv2.SimpleBlobDetector_Params()
 	params.blobColor = 255
@@ -64,7 +68,7 @@ while(True):
 	params.maxThreshold = 60
 	params.thresholdStep = 5
 
-	params.maxArea = 20000
+	params.maxArea = 200000
 	params.minArea = 100
 
 	params.maxConvexity = 10
@@ -81,26 +85,26 @@ while(True):
 
 	# Draw detected blobs as red circles.
 	# cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
-	img_with_keypoints = cv2.drawKeypoints(opening, keypoints, np.array([]), (0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+	img_with_keypoints = cv2.drawKeypoints(opening, keypoints, np.array([]), (0, 0, 255),
+										   cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 	# Display the resulting frame
-	#cv2.imshow('frame', mask)
-	#cv2.imshow('keypoints', img_with_keypoints)
-	#cv2.imshow('opening', opening)
+	# cv2.imshow('frame', mask)
+	# cv2.imshow('keypoints', img_with_keypoints)
+	# cv2.imshow('opening', opening)
 	cv2.imshow('Video', img_with_keypoints)
 
-	'''
 	if cv2.waitKey(1) & 0xFF == ord('q'):
-		file = open("Ball_Slider_Positions.txt", "w")
+		'''file = open("Blue_Slider_Positions.txt", "w")
 		file.write(str(H_low) + "\n")
 		file.write(str(H_top) + "\n")
 		file.write(str(S_low) + "\n")
 		file.write(str(S_top) + "\n")
 		file.write(str(V_low) + "\n")
 		file.write(str(V_top) + "\n")
-		file.close()
+		file.close()'''
 		break
-	'''
+
 
 
 # When everything done, release the capture

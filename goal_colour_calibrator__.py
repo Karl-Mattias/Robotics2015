@@ -5,7 +5,7 @@ import sys
 
 #Load Global Settings
 st = BoltSettings()
-settingsDict = st.readDict()
+settingsDict = st.read_dict()
 opg = settingsDict['opponent_goal_color'] #Getting the opponents goal post color
 
 #Main Module Begins Here
@@ -24,7 +24,7 @@ cv2.createTrackbar('S_top','image',0,255,nothing)
 cv2.createTrackbar('V_low','image',0,255,nothing)
 cv2.createTrackbar('V_top','image',0,255,nothing)
 
-#file = open('Ball_Slider_Positions.txt', 'r')
+#file = open('Blue_Slider_Positions.txt', 'r')
 
 cv2.setTrackbarPos('H_low', 'image', int(settingsDict['H_low_'+opg]))
 cv2.setTrackbarPos('H_top', 'image', int(settingsDict['H_top_'+opg]))
@@ -73,7 +73,7 @@ while(True):
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		'''
-		file = open("Ball_Slider_Positions.txt", "w")
+		file = open("Blue_Slider_Positions.txt", "w")
 		file.write(str(H_low) + "\n")
 		file.write(str(H_top) + "\n")
 		file.write(str(S_low) + "\n")
