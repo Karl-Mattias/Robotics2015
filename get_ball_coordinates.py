@@ -1,16 +1,17 @@
 import numpy as np
 import cv2
+from settings import BoltSettings
 
 __author__ = 'Karl'
+
+# Load Global Settings
+st = BoltSettings()
+settingsDict = st.read_dict()
 
 
 def get_ball_coordinates():
 
 	cap = cv2.VideoCapture(1)
-
-	cv2.namedWindow('image')
-
-	positions_file = open('Ball_Slider_Positions.txt', 'r')
 
 	kernel = np.ones((10, 10), np.uint8)
 
@@ -18,12 +19,12 @@ def get_ball_coordinates():
 
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-	h_low = int(positions_file.readline())
-	h_top = int(positions_file.readline())
-	s_low = int(positions_file.readline())
-	s_top = int(positions_file.readline())
-	v_low = int(positions_file.readline())
-	v_top = int(positions_file.readline())
+	h_low = int(settingsDict['H_low_ball'])
+	h_top = int(settingsDict['H_top_ball'])
+	s_low = int(settingsDict['S_low_ball'])
+	s_top = int(settingsDict['S_top_ball'])
+	v_low = int(settingsDict['V_low_ball'])
+	v_top = int(settingsDict['V_top_ball'])
 
 	lower_colour = np.array([h_low, s_low, v_low])
 	upper_colour = np.array([h_top, s_top, v_top])
@@ -54,19 +55,13 @@ def get_ball_coordinates():
 
 	# Detect blobs.
 	keypoints = detector.detect(opening)
-	countours = cv2.findContours(opening, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-	for c in countours:
-		rect = cv2.boundingRect(c)
-		if rect[2] < 5 or rect[3] < 5:
-			continue
-		print cv2.contourArea(c)
-
-	# Getting the blobs coordinates
-	coordinates = []
+	# Getting the biggest blobs coordinates (that is the closest object)
+	biggest_size = 0
+	coordinates = -1
 	for elm in keypoints:
-		coordinates.append([elm.pt[0], elm.pt[1]])
+		if elm.size > biggest_size:
+			biggest_size = elm.size
+			coordinates = (elm.pt[0], elm.pt[1], biggest_size)
 
 	return coordinates
-
-print(get_ball_coordinates())

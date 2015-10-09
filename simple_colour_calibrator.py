@@ -1,12 +1,12 @@
 ﻿import numpy as np
 from settings import BoltSettings
 import cv2
-import sys
 
 # Load Global Settings
 st = BoltSettings()
 settingsDict = st.read_dict()
-opg = settingsDict['own_goal_color']  # Getting the opponents goal post color
+# opg = settingsDict['own_goal_color']
+opg = "ball"
 
 
 # Main Module Begins Here
@@ -95,17 +95,15 @@ while True:
 	cv2.imshow('Video', img_with_keypoints)
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
-		'''file = open("Blue_Slider_Positions.txt", "w")
+		file = open("Slider_Positions.txt", "w")
 		file.write(str(H_low) + "\n")
 		file.write(str(H_top) + "\n")
 		file.write(str(S_low) + "\n")
 		file.write(str(S_top) + "\n")
 		file.write(str(V_low) + "\n")
 		file.write(str(V_top) + "\n")
-		file.close()'''
+		file.close()
 		break
-
-
 
 # When everything done, release the capture
 cap.release()
