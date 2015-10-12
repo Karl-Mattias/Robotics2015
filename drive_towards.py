@@ -4,12 +4,12 @@ __author__ = 'Karl'
 
 
 class DriveTowards:
-	'''
+
 	def __init__(self):
-		self.right_wheel = MotorController("COM5")
-		self.left_wheel = MotorController("COM5")
-		self.back_wheel = MotorController("COM5")
-	'''
+		self.right_wheel = MotorController(1)
+		self.left_wheel = MotorController(2)
+		self.back_wheel = MotorController(3)
+
 	def drive(self, coordinates):
 
 		if coordinates == -1:
