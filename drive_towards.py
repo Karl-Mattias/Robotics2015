@@ -6,9 +6,7 @@ __author__ = 'Karl'
 class DriveTowards:
 
 	def __init__(self):
-		self.right_wheel = MotorController(1)
-		self.left_wheel = MotorController(2)
-		self.back_wheel = MotorController(3)
+		self.motor_controller = MotorController()
 
 	def drive(self, coordinates):
 
@@ -25,17 +23,17 @@ class DriveTowards:
 			speed = 100
 
 		if x > 400:
-			print("left wheel forwards")
-			print("back wheel left")
-			# self.left_wheel.move(speed)
-			# self.back_wheel.move(speed * -1)
+			# print("left wheel forwards")
+			# print("back wheel left")
+			self.motor_controller.move_left_wheel(speed * -1)
+			self.motor_controller.move_back_wheel(speed)
 		elif x < 250:
-			print("right wheel forwards")
-			print("back wheel right")
-			# self.right_wheel.move(speed)
-			# self.back_wheel.move(speed)
+			# print("right wheel forwards")
+			# print("back wheel right")
+			self.motor_controller.move_right_wheel(speed)
+			self.motor_controller.move_back_wheel(speed * -1)
 		else:
-			print("left wheel forwards")
-			print("right wheel forwards")
-			# self.right_wheel.move(speed)
-			# self.left_wheel.move(speed)
+			# print("left wheel forwards")
+			# print("right wheel forwards")
+			self.motor_controller.move_right_wheel(speed)
+			self.motor_controller.move_left_wheel(speed * -1)

@@ -51,7 +51,7 @@ def get_ball_coordinates():
 	params.filterByColor = True
 	params.filterByCircularity = False
 
-	detector = cv2.SimpleBlobDetector_create(params)
+	detector = cv2.SimpleBlobDetector(params)
 
 	# Detect blobs.
 	keypoints = detector.detect(opening)

@@ -3,12 +3,17 @@ import serial
 
 class MotorController:
 
-	def __init__(self, controller_id):
-		port = "COM9"
-		self.motor = serial.Serial(port, 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
-		self.controller_id = controller_id
+	def __init__(self):
+		self.motor = serial.Serial("/dev/ttyUSB0", 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
 		#self.motor_id = motor_id
 
-	def move(self, speed=40):
-		self.motor.write(str(self.controller_id) + ':sd' + str(speed) + '\n')
+	# The ids for right, left and back wheel controllers are 1, 2 and 3 respectively
+	def move_right_wheel(self, speed=40):
+		self.motor.write("1" + ':sd' + str(speed) + '\n')
 		#data = self.motor.read(9999)
+
+	def move_left_wheel(self, speed=40):
+		self.motor.write("2" + ':sd' + str(speed) + '\n')
+
+	def move_back_wheel(self, speed=40):
+		self.motor.write("3" + ':sd' + str(speed) + '\n')
