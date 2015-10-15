@@ -1,9 +1,11 @@
+import os
 import serial
 
 
 class MotorController:
 
 	def __init__(self):
+		os.chmod("/dev/ttyUSB0", 755)  # set permissions to read serial
 		self.motor = serial.Serial("/dev/ttyUSB0", 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
 		#self.motor_id = motor_id
 

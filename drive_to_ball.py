@@ -6,11 +6,11 @@ __author__ = 'Karl'
 
 def drive_to_ball():
 
-	coordinates = get_ball_coordinates()
 	driver = DriveTowards()
 
-	while coordinates != -1:
+	while True:
 		coordinates = get_ball_coordinates()
+		print("true")
 		driver.drive(coordinates)
 
 drive_to_ball()

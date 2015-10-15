@@ -11,7 +11,7 @@ settingsDict = st.read_dict()
 
 def get_ball_coordinates():
 
-	cap = cv2.VideoCapture(1)
+	cap = cv2.VideoCapture(0)
 
 	kernel = np.ones((10, 10), np.uint8)
 
