@@ -24,11 +24,12 @@ class TurnToGoal:
 			if x < 300:
 				self.motor_controller.stop()
 				self.motor_controller.move_back_wheel(30)
-			elif x > 350:
-				self.motor_controller.stop()
-				self.motor_controller.move_back_wheel(-30)
 			else:
 				break
+			'''elif x > 350:
+				self.motor_controller.stop()
+				self.motor_controller.move_back_wheel(-30)'''
+
 
 		self.motor_controller.stop()
 		self.motor_controller.move_right_wheel(100)

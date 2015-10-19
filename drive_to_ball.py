@@ -17,9 +17,9 @@ def drive_to_ball():
 
 		if coordinates != -1:
 			print("Y:", coordinates[1])
-		if coordinates[1] < 25:
-			print("near ball")
-			to_goal.turn()
-			break
+			if coordinates[1] > 450:
+				print("near ball")
+				to_goal.turn()
+				break
 
 drive_to_ball()
