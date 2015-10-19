@@ -18,23 +18,27 @@ class DriveTowards:
 		y = coordinates[1]
 		size = coordinates[2]
 
-		if size < 50:
+		if y < 150:
 			speed = 50
 		else:
 			speed = 100
 
-		if x > 400:
+		# the added multiplier to differentiate the wheel speeds
+		turning_speed = ((abs(x - 325) / 325) * ((y - 650) / -650)) * speed
+		print("turning speed: " + str(turning_speed))
+
+		if x > 325:
 			print("move right")
 			self.motor_controller.stop()
-			self.motor_controller.move_left_wheel(speed * -1)
-			self.motor_controller.move_back_wheel(speed)
-		elif x < 250:
+			self.motor_controller.move_left_wheel((speed + turning_speed) * -1)
+			self.motor_controller.move_right_wheel(speed - turning_speed)
+		else:
 			print("move left")
 			self.motor_controller.stop()
-			self.motor_controller.move_right_wheel(speed)
-			self.motor_controller.move_back_wheel(speed * -1)
-		else:
+			self.motor_controller.move_right_wheel(speed + turning_speed)
+			self.motor_controller.move_left_wheel((speed - turning_speed) * -1)
+		'''else:
 			print("move forwards")
 			self.motor_controller.stop()
 			self.motor_controller.move_right_wheel(speed)
-			self.motor_controller.move_left_wheel(speed * -1)
+			self.motor_controller.move_left_wheel(speed * -1)'''
