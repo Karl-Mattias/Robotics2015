@@ -19,9 +19,9 @@ class DriveTowards:
 		size = coordinates[2]
 
 		if y < 150:
-			speed = 25
-		else:
 			speed = 50
+		else:
+			speed = 25
 
 		# the added multiplier to differentiate the wheel speeds
 		turning_speed = ((abs(x - 325) / 325) * ((y - 650) / -650)) * speed

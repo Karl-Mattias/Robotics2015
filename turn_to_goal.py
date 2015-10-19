@@ -23,7 +23,7 @@ class TurnToGoal:
 		while True:
 			if x < 300:
 				self.motor_controller.stop()
-				self.motor_controller.move_back_wheel(30)
+				self.motor_controller.move_back_wheel(50)
 			else:
 				break
 			'''elif x > 350:
