@@ -39,7 +39,7 @@ class GetCoordinates:
 		opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
 		# Set up the detector with parameters.
-		params = cv2.SimpleBlobDetector_Params()
+		params = cv2.SimpleBlobDetector()
 		params.blobColor = 255
 		params.minThreshold = 40
 		params.maxThreshold = 60
