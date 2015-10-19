@@ -15,7 +15,10 @@ def drive_to_ball():
 		coordinates = get_ball_coordinates.get_coordinates()
 		driver.drive(coordinates)
 
+		if coordinates != -1:
+			print("Y:", coordinates[1])
 		if coordinates[1] < 25:
+			print("near ball")
 			to_goal.turn()
 			break
 
