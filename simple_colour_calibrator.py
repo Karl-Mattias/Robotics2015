@@ -57,10 +57,10 @@ while True:
 
 	mask = cv2.inRange(hsv, lower_colour, upper_colour)
 
+	# making edges of the two different colours to be less fuzzy
 	closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 	opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
-
-
+	'''
 	# Set up the detector with parameters.
 	params = cv2.SimpleBlobDetector_Params()
 	params.blobColor = 255
@@ -79,20 +79,31 @@ while True:
 	params.filterByCircularity = False
 
 	detector = cv2.SimpleBlobDetector_create(params)
-
+	'''
 	# Detect blobs.
-	keypoints = detector.detect(opening)
+	_, contours, _ = cv2.findContours(opening, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+	# keypoints = detector.detect(opening)
 
 	# Draw detected blobs as red circles.
-	# cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS ensures the size of the circle corresponds to the size of blob
-	img_with_keypoints = cv2.drawKeypoints(opening, keypoints, np.array([]), (0, 0, 255),
-										   cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 	# Display the resulting frame
 	# cv2.imshow('frame', mask)
 	# cv2.imshow('keypoints', img_with_keypoints)
 	# cv2.imshow('opening', opening)
-	cv2.imshow('Video', img_with_keypoints)
+
+	if contours:
+		cnt = contours[0]
+		M = cv2.moments(cnt)
+		cx = int(M['m10']/M['m00'])
+		cy = int(M['m01']/M['m00'])
+		## print(str(cx) + ", " + str(cy))
+
+		(x,y),radius = cv2.minEnclosingCircle(cnt)
+		center = (int(x),int(y))
+		radius = int(radius)
+		cv2.circle(frame, center, radius, (0, 255, 0), 2)
+
+	cv2.imshow('Video', frame)
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		file = open("Slider_Positions.txt", "w")

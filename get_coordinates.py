@@ -35,37 +35,25 @@ class GetCoordinates:
 
 		mask = cv2.inRange(hsv, lower_colour, upper_colour)
 
+		# making edges of the two different colours to be less fuzzy
 		closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 		opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
-		# Set up the detector with parameters.
-		params = cv2.SimpleBlobDetector()
-		params.blobColor = 255
-		params.minThreshold = 40
-		params.maxThreshold = 60
-		params.thresholdStep = 5
-
-		params.maxArea = 20000
-		params.minArea = 100
-
-		params.maxConvexity = 10
-		params.minConvexity = 0.3
-		params.minInertiaRatio = 0.01
-
-		params.filterByColor = True
-		params.filterByCircularity = False
-
-		detector = cv2.SimpleBlobDetector_create(params)
-
 		# Detect blobs.
-		keypoints = detector.detect(opening)
+		_, contours, _ = cv2.findContours(opening, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-		# Getting the biggest blobs coordinates (that is the closest object)
+		# Getting the biggest blob's coordinates (that is probably the closest object)
 		biggest_size = 0
 		coordinates = -1
-		for elm in keypoints:
-			if elm.size > biggest_size:
-				biggest_size = elm.size
-				coordinates = (elm.pt[0], elm.pt[1], biggest_size)
+		for cnt in contours:
+			area = cv2.contourArea(cnt)
+			if area > biggest_size:
+				biggest_size = area
+				cnt = contours[0]
+				M = cv2.moments(cnt)
+				cx = int(M['m10']/M['m00'])
+				cy = int(M['m01']/M['m00'])
+				coordinates = (cx, cy, biggest_size)
+				print(coordinates)
 
 		return coordinates

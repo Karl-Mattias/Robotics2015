@@ -23,8 +23,10 @@ class DriveTowards:
 		else:
 			speed = 25
 
-		# the added multiplier to differentiate the wheel speeds
-		turning_speed = ((abs(x - 325) / 325) * ((y - 650) / -650)) * speed
+		# the added multiplier to differentiate the wheel speeds.
+		# the smaller the y value the least is needed to turn, because the farthest is the ball.
+		# the closer the x value is to the central value (325) the least is needed to turn.
+		turning_speed = ((abs(x - 325) / 325) * ((650 - y) / 650)) * speed
 		print("turning speed: " + str(turning_speed))
 
 		if x > 325:
