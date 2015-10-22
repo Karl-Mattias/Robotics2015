@@ -26,6 +26,8 @@ class DriveTowards:
 		# the added multiplier to differentiate the wheel speeds.
 		# the smaller the y value the least is needed to turn, because the farthest is the ball.
 		# the closer the x value is to the central value (325) the least is needed to turn.
+		print(str(abs(x - 325) / 325))
+		print(str((650 - y) / 650))
 		turning_speed = ((abs(x - 325) / 325) * ((650 - y) / 650)) * speed
 		print("turning speed: " + str(turning_speed))
 
