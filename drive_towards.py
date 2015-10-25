@@ -28,9 +28,9 @@ class DriveTowards:
 		# the closer the x value is to the central value (325) the least is needed to turn.
 		print("x: " + str(x))
 		print("y: " + str(y))
-		print("X part: " + str(abs(x - 325) / 325))
-		print("Y part: " + str((650 - y) / 650))
-		turning_speed = ((abs(x - 325) / 325) * ((650 - y) / 650)) * speed
+		print("X part: " + str(abs(x - 325) / 325.0))
+		print("Y part: " + str((650 - y) / 650.0))
+		turning_speed = ((abs(x - 325) / 325.0) * ((650 - y) / 650.0)) * speed
 		print("turning speed: " + str(turning_speed))
 
 		if x > 325:
