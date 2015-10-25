@@ -30,6 +30,7 @@ class GetCoordinates:
 		ret, frame = cap.read()
 
 		if not ret:
+			print("No image")
 			return -1
 
 		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
