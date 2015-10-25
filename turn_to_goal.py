@@ -16,6 +16,7 @@ class TurnToGoal:
 		while coordinates == -1:
 			self.motor_controller.stop()
 			self.motor_controller.move_back_wheel(100)
+			coordinates = self.get_gate_coordinates.get_coordinates()
 
 		x = coordinates[0]
 

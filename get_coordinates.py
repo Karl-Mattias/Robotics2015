@@ -9,9 +9,17 @@ class GetCoordinates:
 
 	def __init__(self, obj):
 		# Load Global Settings
-		self.obj = obj
 		st = BoltSettings()
 		self.settingsDict = st.read_dict()
+		h_low = int(self.settingsDict['H_low_' + obj])
+		h_top = int(self.settingsDict['H_top_' + obj])
+		s_low = int(self.settingsDict['S_low_' + obj])
+		s_top = int(self.settingsDict['S_top_' + obj])
+		v_low = int(self.settingsDict['V_low_' + obj])
+		v_top = int(self.settingsDict['V_top_' + obj])
+
+		self.lower_colour = np.array([h_low, s_low, v_low])
+		self.upper_colour = np.array([h_top, s_top, v_top])
 
 	def get_coordinates(self):
 
@@ -23,17 +31,7 @@ class GetCoordinates:
 
 		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-		h_low = int(self.settingsDict['H_low_' + self.obj])
-		h_top = int(self.settingsDict['H_top_' + self.obj])
-		s_low = int(self.settingsDict['S_low_' + self.obj])
-		s_top = int(self.settingsDict['S_top_' + self.obj])
-		v_low = int(self.settingsDict['V_low_' + self.obj])
-		v_top = int(self.settingsDict['V_top_' + self.obj])
-
-		lower_colour = np.array([h_low, s_low, v_low])
-		upper_colour = np.array([h_top, s_top, v_top])
-
-		mask = cv2.inRange(hsv, lower_colour, upper_colour)
+		mask = cv2.inRange(hsv, self.lower_colour, self.upper_colour)
 
 		# making edges of the two different colours to be less fuzzy
 		closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
