@@ -58,4 +58,6 @@ class GetCoordinates:
 				coordinates = (cx, cy, biggest_size)
 				print(coordinates)
 
+		cap.release()
+
 		return coordinates
