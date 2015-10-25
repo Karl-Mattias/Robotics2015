@@ -43,6 +43,9 @@ while True:
 	# Capture frame-by-frame
 	ret, frame = cap.read()
 
+	if not ret:
+		continue
+
 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
 	H_low = cv2.getTrackbarPos('H_low', 'image')

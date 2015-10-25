@@ -29,6 +29,9 @@ class GetCoordinates:
 
 		ret, frame = cap.read()
 
+		if not ret:
+			return -1
+
 		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
 		mask = cv2.inRange(hsv, self.lower_colour, self.upper_colour)
