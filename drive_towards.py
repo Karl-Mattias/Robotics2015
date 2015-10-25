@@ -19,9 +19,9 @@ class DriveTowards:
 		size = coordinates[2]
 
 		if y < 150:
-			speed = 50
+			speed = 60
 		else:
-			speed = 25
+			speed = 30
 
 		# the added multiplier to differentiate the wheel speeds.
 		# the smaller the y value the least is needed to turn, because the farthest is the ball.
