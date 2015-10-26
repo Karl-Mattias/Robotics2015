@@ -16,7 +16,7 @@ class DriveTowards:
 
 		x = coordinates[0]
 		y = coordinates[1]
-		size = coordinates[2]
+		# size = coordinates[2]
 
 		if y < 150:
 			speed = 60
@@ -26,10 +26,6 @@ class DriveTowards:
 		# the added multiplier to differentiate the wheel speeds.
 		# the smaller the y value the least is needed to turn, because the farthest is the ball.
 		# the closer the x value is to the central value (325) the least is needed to turn.
-		print("x: " + str(x))
-		print("y: " + str(y))
-		print("X part: " + str(abs(x - 325) / 325.0))
-		print("Y part: " + str((650 - y) / 650.0))
 		turning_speed = ((abs(x - 325) / 325.0) * ((650 - y) / 650.0)) * speed
 		print("turning speed: " + str(turning_speed))
 
