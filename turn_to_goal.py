@@ -25,10 +25,10 @@ class TurnToGoal:
 			speed = (abs(x - 325) / 2)
 			if x < 320:
 				self.motor_controller.stop()
-				self.motor_controller.move_back_wheel(speed)
+				self.motor_controller.move_back_wheel(20)
 			elif x > 330:
 				self.motor_controller.stop()
-				self.motor_controller.move_back_wheel(-speed)
+				self.motor_controller.move_back_wheel(-20)
 			else:
 				break
 
