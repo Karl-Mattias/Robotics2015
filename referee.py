@@ -1,6 +1,6 @@
 ﻿import time, os, serial
 from settings import BoltSettings
-from drive_to_ball import DriveController
+
 
 __author__ = 'Gabriel'
 
@@ -15,6 +15,11 @@ class RefereeController(object):
         
     def writeAckString (self):
         self.initChar+self.boltSettings.playingField+self.boltSettings.robotID+self.boltSettings.ackMsg
+
+    def writeLastCtrSignal (msg):
+        f = open('referee.command','w')
+        f.write(msg)
+        f.close
             
     def listen(self):
         initChar = self.initChar
@@ -50,10 +55,12 @@ class RefereeController(object):
                         print(msg)
                         if self.respond == True:
                             self.serialChannel.write((self.writeAckString).encode())
-
-                        #We robot will stop any where
-                        while msg != "STOP":
-                            DriveController.drive_to_ball()
+                        
+                        if msg == "START":
+                            self.writeLastCtrSignal('True')
+                        else:
+                            self.writeLastCtrSignal('False')
+                            
                             
    
             
