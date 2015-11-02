@@ -20,6 +20,8 @@ class DriveController(object):
                     print("near ball")
                     to_goal.turn()
                     break
+            else:
+                driver.circle()
 
 
 #drive_to_ball()

@@ -14,7 +14,7 @@ class RefereeController(object):
 		self.respond = False
 
 	def writeAckString(self):
-		self.initChar + self.boltSettings.playingField + self.boltSettings.robotID + self.boltSettings.ackMsg
+		self.serialChannel.write(self.initChar + self.boltSettings.playingField + self.boltSettings.robotID + self.boltSettings.ackMsg)
 
 	def writeLastCtrSignal(self, msg):
 		f = open('referee.command', 'w')
