@@ -12,6 +12,7 @@ drive_controller = DriveController()
 while 1:
     f = open('referee.command', 'r')
     play_on = eval(f.readline())
+    f.close()
 
     if play_on:
         drive_controller.drive_to_ball()
