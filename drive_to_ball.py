@@ -6,26 +6,28 @@ __author__ = 'Karl'
 
 class DriveController(object):
 
+    def __init__(self):
+        self.get_ball_coordinates = GetCoordinates("ball")
+        self.driver = DriveTowards()
+        self.to_goal = TurnToGoal()
+        self.i = 0
+
     def drive_to_ball(self):
-        get_ball_coordinates = GetCoordinates("ball")
-        driver = DriveTowards()
-        to_goal = TurnToGoal()
-        i = 0
 
         while True:
-            coordinates = get_ball_coordinates.get_coordinates()
-            driver.drive(coordinates)
-            i += 1
+            coordinates = self.get_ball_coordinates.get_coordinates()
+            self.driver.drive(coordinates)
+            self.i += 1
             if coordinates != -1:
-                i = 0
+                self.i = 0
                 print("Y:", coordinates[1])
                 if coordinates[1] > 450:
                     print("near ball")
-                    to_goal.turn()
+                    self.to_goal.turn()
                     break
             else:
-                if i > 10:
-                    driver.circle()
+                if self.i > 10:
+                    self.driver.circle()
 
 
 #drive_to_ball()
