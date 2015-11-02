@@ -4,7 +4,8 @@ import threading
 
 __author__ = 'Gabriel'
 
-td = threading.Thread(target=RefereeController.listen)
+referee_controller = RefereeController()
+td = threading.Thread(target=referee_controller.listen)
 td.start()
 drive_controller = DriveController()
 
