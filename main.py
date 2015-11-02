@@ -4,6 +4,10 @@ import threading
 
 __author__ = 'Gabriel'
 
+f = open('referee.command', 'w')
+f.write("False")
+f.close()
+
 referee_controller = RefereeController()
 td = threading.Thread(target=referee_controller.listen)
 td.start()
@@ -12,7 +16,7 @@ drive_controller = DriveController()
 while 1:
     f = open('referee.command', 'r')
     line = f.readline()
-    print(line)
+    print("parse: " + line)
     play_on = eval(line)
     f.close()
 
