@@ -11,7 +11,9 @@ drive_controller = DriveController()
 
 while 1:
     f = open('referee.command', 'r')
-    play_on = eval(f.readline())
+    line = f.readline()
+    print(line)
+    play_on = eval(line)
     f.close()
 
     if play_on:

@@ -44,6 +44,7 @@ class RefereeController(object):
 				msg = ""
 				for self.CharCounter in range(3, 12):
 					charSignal = self.serialChannel.read().decode()
+					print(charSignal)
 					if charSignal == self.initChar:
 						self.CharCounter = 0
 						break
