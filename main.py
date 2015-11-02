@@ -1,6 +1,6 @@
 from referee import RefereeController
 from drive_to_ball import DriveController
-import threading
+import threading, time
 
 __author__ = 'Gabriel'
 
@@ -22,4 +22,6 @@ while 1:
 
     if play_on:
         drive_controller.drive_to_ball()
+
+    time.sleep(1)
 
