@@ -9,7 +9,7 @@ class RefereeController(object):
 		self.serialChannel = serial.Serial("/dev/ttyACM0", 9600)
 		self.boltSettings = BoltSettings().read_dict()
 		self.CharCounter = 0
-		self.initChar = self.boltSettings.initialCharSignal
+		self.initChar = self.boltSettings['initialCharSignal']
 		self.listening = False
 		self.respond = False
 
@@ -32,13 +32,13 @@ class RefereeController(object):
 				continue
 			if not self.listening:
 				continue  # wait for next a
-			if self.CharCounter == 1 and charSignal != self.boltSettings.playingField:
+			if self.CharCounter == 1 and charSignal != self.boltSettings['playingField']:
 				self.listening = False
-			if self.CharCounter == 2 and charSignal != self.boltSettings.robotID and charSignal != self.boltSettings.allRobotsChar:
+			if self.CharCounter == 2 and charSignal != self.boltSettings['robotID'] and charSignal != self.boltSettings['allRobotsChar']:
 				self.listening = False
-			if self.CharCounter == 2 and charSignal == self.boltSettings.robotID:
+			if self.CharCounter == 2 and charSignal == self.boltSettings['robotID']:
 				self.respond = True
-			if self.CharCounter == 2 and charSignal == self.boltSettings.allRobotsChar:
+			if self.CharCounter == 2 and charSignal == self.boltSettings['allRobotsChar']:
 				self.respond = False
 			if self.CharCounter == 2 and self.listening:
 				msg = ""
