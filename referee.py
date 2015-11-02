@@ -25,6 +25,7 @@ class RefereeController(object):
 		initChar = self.initChar
 		self.CharCounter += 1
 		charSignal = self.serialChannel.read().decode()
+		print(charSignal)
 		while 1:
 			if charSignal == initChar:
 				self.CharCounter = 0
