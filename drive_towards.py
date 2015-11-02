@@ -42,6 +42,6 @@ class DriveTowards:
 
 	def circle(self):
 		self.motor_controller.stop()
-		self.motor_controller.move_left_wheel(10)
-		self.motor_controller.move_right_wheel(10)
-		self.motor_controller.move_back_wheel(10)
+		self.motor_controller.move_left_wheel(20)
+		self.motor_controller.move_right_wheel(20)
+		self.motor_controller.move_back_wheel(20)

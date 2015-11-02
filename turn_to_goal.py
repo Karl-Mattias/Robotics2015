@@ -20,6 +20,9 @@ class TurnToGoal:
 
 		while True:
 			coordinates = self.get_gate_coordinates.get_coordinates()
+			if coordinates == -1:
+				continue
+
 			x = coordinates[0]
 			# closer to looking straight to the gate the smaller the speed
 			# speed = (abs(x - 325) / 2)
