@@ -10,18 +10,22 @@ class DriveController(object):
         get_ball_coordinates = GetCoordinates("ball")
         driver = DriveTowards()
         to_goal = TurnToGoal()
+        i = 0
 
         while True:
             coordinates = get_ball_coordinates.get_coordinates()
             driver.drive(coordinates)
+            i += 1
             if coordinates != -1:
+                i = 0
                 print("Y:", coordinates[1])
                 if coordinates[1] > 450:
                     print("near ball")
                     to_goal.turn()
                     break
             else:
-                driver.circle()
+                if i > 10:
+                    driver.circle()
 
 
 #drive_to_ball()
