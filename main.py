@@ -6,11 +6,12 @@ __author__ = 'Gabriel'
 
 td = threading.Thread(target=RefereeController.listen)
 td.start()
+drive_controller = DriveController()
 
 while 1:
     f = open('referee.command', 'r')
     play_on = eval(f.readline())
 
     if play_on:
-        DriveController.drive_to_ball()
+        drive_controller.drive_to_ball()
 

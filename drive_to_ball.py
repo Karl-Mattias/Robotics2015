@@ -1,4 +1,4 @@
-﻿from get_coordinates import GetCoordinates
+from get_coordinates import GetCoordinates
 from drive_towards import DriveTowards
 from turn_to_goal import TurnToGoal
 
@@ -6,7 +6,7 @@ __author__ = 'Karl'
 
 class DriveController(object):
 
-    def drive_to_ball():
+    def drive_to_ball(self):
         get_ball_coordinates = GetCoordinates("ball")
         driver = DriveTowards()
         to_goal = TurnToGoal()
