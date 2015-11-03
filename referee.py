@@ -1,4 +1,4 @@
-import serial
+﻿import serial
 from settings import BoltSettings
 
 __author__ = 'Gabriel'
@@ -54,8 +54,8 @@ class RefereeController(object):
 					msg += charSignal
 					if msg in ["START", "STOP"]:
 						print(msg)
-						if self.respond:
-							self.serialChannel.write(self.writeAckString)
+						#if self.respond:
+						#	self.serialChannel.write(self.writeAckString)
 
 						if msg == "START":
 							self.writeLastCtrSignal('True')

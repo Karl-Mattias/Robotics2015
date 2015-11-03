@@ -1,14 +1,18 @@
-from get_coordinates import GetCoordinates
+﻿from get_coordinates import GetCoordinates
 from motor_controller import MotorController
 import time
+from game_status import GameStatus
 
 __author__ = 'Karl'
 
 
 class TurnToGoal:
-	def __init__(self):
-		self.get_gate_coordinates = GetCoordinates("blue")
-		self.motor_controller = MotorController()
+    def __init__(self):
+        self.get_gate_coordinates = GetCoordinates("blue")
+        self.motor_controller = MotorController()
+        self.game_status = GameStatus()
+        if (self.game_status == False):
+            return
 
 	def turn(self):
 

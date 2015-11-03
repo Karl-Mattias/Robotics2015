@@ -1,13 +1,16 @@
-from motor_controller import MotorController
+﻿from motor_controller import MotorController
+from game_status import GameStatus
 
 __author__ = 'Karl'
 
 
 class DriveTowards:
-
-	def __init__(self):
-		self.motor_controller = MotorController()
-
+    def __init__(self):
+        self.motor_controller = MotorController()
+        self.game_status = GameStatus()
+        if (self.game_status == False): 
+            return
+            
 	def drive(self, coordinates):
 
 		if coordinates == -1:
