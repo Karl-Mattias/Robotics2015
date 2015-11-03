@@ -20,15 +20,21 @@ class TurnToGoal:
 
 		while True:
 			coordinates = self.get_gate_coordinates.get_coordinates()
+			if coordinates == -1:
+				continue
+
 			x = coordinates[0]
 			# closer to looking straight to the gate the smaller the speed
-			speed = (abs(x - 325) / 2)
+			# speed = (abs(x - 325) / 2)
+			# if speed > 20:
+			# 	speed = 20
+
 			if x < 320:
 				self.motor_controller.stop()
 				self.motor_controller.move_back_wheel(20)
 			elif x > 330:
 				self.motor_controller.stop()
-				self.motor_controller.move_back_wheel(-20)
+				self.motor_controller.move_back_wheel(20 * -1)
 			else:
 				break
 
