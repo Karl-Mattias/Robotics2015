@@ -8,8 +8,8 @@ class DriveTowards:
     def __init__(self):
         self.motor_controller = MotorController()
         self.game_status = GameStatus()
-        if (self.game_status == False): 
-            return
+        #if (self.game_status == False): 
+        #    return
             
 	def drive(self, coordinates):
 
