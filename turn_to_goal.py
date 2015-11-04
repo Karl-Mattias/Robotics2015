@@ -18,7 +18,7 @@ class TurnToGoal:
 
 		coordinates = self.get_gate_coordinates.get_coordinates()
 		while coordinates == -1:
-			self.motor_controller.stop()
+			#self.motor_controller.stop()
 			self.motor_controller.move_back_wheel(60)
 			coordinates = self.get_gate_coordinates.get_coordinates()
 
@@ -33,13 +33,14 @@ class TurnToGoal:
 			# if speed > 20:
 			# 	speed = 20
 
-			if x < 320:
+			if x < 310:
 				#self.motor_controller.stop()
 				self.motor_controller.move_back_wheel(20)
-			elif x > 330:
+			elif x > 340:
 				#self.motor_controller.stop()
 				self.motor_controller.move_back_wheel(20 * -1)
 			else:
+				self.motor_controller.stop()
 				break
 
 		#self.motor_controller.stop()
