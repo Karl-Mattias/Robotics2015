@@ -31,12 +31,12 @@ class DriveTowards:
 
 		if x > 325:
 			print("move right")
-			self.motor_controller.stop()
+			#self.motor_controller.stop()
 			self.motor_controller.move_left_wheel((speed + turning_speed) * -1)
 			self.motor_controller.move_right_wheel(speed - turning_speed)
 		else:
 			print("move left")
-			self.motor_controller.stop()
+			#self.motor_controller.stop()
 			self.motor_controller.move_right_wheel(speed + turning_speed)
 			self.motor_controller.move_left_wheel((speed - turning_speed) * -1)
 
