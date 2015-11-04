@@ -13,25 +13,31 @@ class TurnToGoal:
 		self.get_gate_coordinates = GetCoordinates(bolt_settings["opponent_goal_color"])
 		self.motor_controller = MotorController()
 		self.game_status = GameStatus()
+		self.turns_searching = 0
 
 	def turn(self):
 
-		try_again = False
 		coordinates = self.get_gate_coordinates.get_coordinates()
-		while coordinates == -1:
+		while coordinates == -1 and self.game_status.status():
 			#self.motor_controller.stop()
+			self.turns_searching += 1
 			self.motor_controller.move_back_wheel(60)
 			coordinates = self.get_gate_coordinates.get_coordinates()
 			print("finding fast")
 
-		self.motor_controller.stop()
+			# it cannot find gate (might be in the corner)
+			# for now just find new ball
+			if self.turns_searching > 30:
+				break
 
-		while self.game_status.status():
+		# self.motor_controller.stop()
+
+		while self.game_status.status() and self.turns_searching < 30:
+			self.turns_searching += 1
 			coordinates = self.get_gate_coordinates.get_coordinates()
 			print("finding slow")
 			if coordinates == -1:
 				self.turn()
-				try_again = True
 				break
 
 			x = coordinates[0]
@@ -46,13 +52,9 @@ class TurnToGoal:
 			elif x > 340:
 				#self.motor_controller.stop()
 				self.motor_controller.move_back_wheel(20 * -1)
-			else:
+			else:  # facing goal
+				self.motor_controller.move_right_wheel(60)
+				self.motor_controller.move_left_wheel(-60)
+				time.sleep(1)
 				self.motor_controller.stop()
 				break
-
-		if not try_again:
-			#self.motor_controller.stop()
-			self.motor_controller.move_right_wheel(60)
-			self.motor_controller.move_left_wheel(-60)
-			time.sleep(1)
-			self.motor_controller.stop()
