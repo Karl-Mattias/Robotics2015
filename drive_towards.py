@@ -19,7 +19,7 @@ class DriveTowards:
 		# size = coordinates[2]
 
 		if y < 150:
-			speed = 60
+			speed = 40
 		else:
 			speed = 30
 
