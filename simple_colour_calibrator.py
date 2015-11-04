@@ -14,7 +14,7 @@ def nothing(x):
 	pass
 
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 cv2.namedWindow('image')
 
@@ -84,7 +84,7 @@ while True:
 	detector = cv2.SimpleBlobDetector_create(params)
 	'''
 	# Detect blobs.
-	_, contours, _ = cv2.findContours(opening, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+	_, contours, _ = cv2.findContours(closing, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 	# keypoints = detector.detect(opening)
 
 	# Draw detected blobs as red circles.
@@ -97,18 +97,21 @@ while True:
 	if contours:
 		cnt = contours[0]
 		M = cv2.moments(cnt)
-		cx = int(M['m10']/M['m00'])
-		cy = int(M['m01']/M['m00'])
-		## print(str(cx) + ", " + str(cy))
+		try:
+			cx = int(M['m10']/M['m00'])
+			cy = int(M['m01']/M['m00'])
+		except ZeroDivisionError:
+			continue
+		print(str(cx) + ", " + str(cy))
 
 		(x,y),radius = cv2.minEnclosingCircle(cnt)
 		center = (int(x),int(y))
 		radius = int(radius)
 		cv2.circle(frame, center, radius, (0, 255, 0), 2)
-		cv2.circle(opening, center, radius, (0, 255, 0), 2)
+		cv2.circle(closing, center, radius, (0, 255, 0), 2)
 
 	cv2.imshow('Video', frame)
-	cv2.imshow('Open', opening)
+	cv2.imshow('Open', mask)
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		file = open("Slider_Positions.txt", "w")

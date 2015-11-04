@@ -42,7 +42,7 @@ class GetCoordinates:
 		opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
 		# Detect blobs.
-		contours, _ = cv2.findContours(opening, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+		contours, _ = cv2.findContours(closing, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
 		# Getting the biggest blob's coordinates (that is probably the closest object)
 		biggest_size = 0
@@ -53,8 +53,12 @@ class GetCoordinates:
 				biggest_size = area
 				cnt = contours[0]
 				M = cv2.moments(cnt)
-				cx = int(M['m10']/M['m00'])
-				cy = int(M['m01']/M['m00'])
+				try:
+					cx = int(M['m10']/M['m00'])
+					cy = int(M['m01']/M['m00'])
+				except ZeroDivisionError:
+					coordinates = -1
+					continue
 				coordinates = (cx, cy, biggest_size)
 				print(coordinates)
 
