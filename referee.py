@@ -56,7 +56,7 @@ class RefereeController(object):
 					if msg in ["START", "STOP"]:
 						print(msg)
 						if self.respond:
-							self.serialChannel.write(self.writeAckString)
+							self.writeAckString()
 
 						if msg == "START":
 							self.writeLastCtrSignal('True')
