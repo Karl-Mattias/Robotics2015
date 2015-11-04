@@ -52,7 +52,7 @@ class TurnToGoal:
 
 		if not try_again:
 			#self.motor_controller.stop()
-			self.motor_controller.move_right_wheel(100)
-			self.motor_controller.move_left_wheel(-100)
-			time.sleep(0.5)
+			self.motor_controller.move_right_wheel(60)
+			self.motor_controller.move_left_wheel(-60)
+			time.sleep(1)
 			self.motor_controller.stop()
