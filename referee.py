@@ -15,6 +15,8 @@ class RefereeController(object):
 		self.kill_received = False
 
 	def writeAckString(self):
+		print(self.initChar)
+		print(self.boltSettings["playingField"])
 		message = (self.initChar + self.boltSettings["playingField"] + self.boltSettings["robotID"] + self.boltSettings["ackMsg"]).encode
 		print("message: " + message)
 		self.serialChannel.write(message)
