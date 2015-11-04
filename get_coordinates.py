@@ -58,9 +58,9 @@ class GetCoordinates:
 					cy = int(M['m01']/M['m00'])
 				except ZeroDivisionError:
 					coordinates = -1
+					print("zero division")
 					continue
 				coordinates = (cx, cy, biggest_size)
-				print(coordinates)
 
 		self.cap.release()
 

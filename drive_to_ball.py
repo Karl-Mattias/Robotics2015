@@ -22,6 +22,7 @@ class DriveController(object):
 		while self.game_status.status():
 			coordinates = self.get_ball_coordinates.get_coordinates()
 			self.i += 1
+			print("i = " + str(self.i))
 			if coordinates != -1:
 				self.driver.drive(coordinates)
 				self.i = 0

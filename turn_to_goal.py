@@ -32,6 +32,7 @@ class TurnToGoal:
 			if coordinates == -1:
 				self.turn()
 				try_again = True
+				break
 
 			x = coordinates[0]
 			# closer to looking straight to the gate the smaller the speed
@@ -50,8 +51,8 @@ class TurnToGoal:
 				break
 
 		if not try_again:
-			self.motor_controller.stop()
+			#self.motor_controller.stop()
 			self.motor_controller.move_right_wheel(100)
 			self.motor_controller.move_left_wheel(-100)
-			time.sleep(1)
+			time.sleep(0.5)
 			self.motor_controller.stop()
