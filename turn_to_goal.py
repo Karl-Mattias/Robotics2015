@@ -1,5 +1,7 @@
 from get_coordinates import GetCoordinates
 from motor_controller import MotorController
+from settings import BoltSettings
+from game_status import GameStatus
 import time
 
 __author__ = 'Karl'
@@ -7,8 +9,10 @@ __author__ = 'Karl'
 
 class TurnToGoal:
 	def __init__(self):
-		self.get_gate_coordinates = GetCoordinates("blue")
+		bolt_settings = BoltSettings().read_dict()
+		self.get_gate_coordinates = GetCoordinates(bolt_settings["opponent_goal_color"])
 		self.motor_controller = MotorController()
+		self.game_status = GameStatus()
 
 	def turn(self):
 
@@ -18,7 +22,7 @@ class TurnToGoal:
 			self.motor_controller.move_back_wheel(60)
 			coordinates = self.get_gate_coordinates.get_coordinates()
 
-		while True:
+		while self.game_status.status():
 			coordinates = self.get_gate_coordinates.get_coordinates()
 			if coordinates == -1:
 				continue

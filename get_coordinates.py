@@ -23,11 +23,11 @@ class GetCoordinates:
 
 	def get_coordinates(self):
 
-		cap = cv2.VideoCapture(0)
+		self.cap = cv2.VideoCapture(0)
 
 		kernel = np.ones((10, 10), np.uint8)
 
-		ret, frame = cap.read()
+		ret, frame = self.cap.read()
 
 		if not ret:
 			print("No image")
@@ -58,6 +58,9 @@ class GetCoordinates:
 				coordinates = (cx, cy, biggest_size)
 				print(coordinates)
 
-		cap.release()
+		self.cap.release()
 
 		return coordinates
+
+	def kill(self):
+		self.cap.release()

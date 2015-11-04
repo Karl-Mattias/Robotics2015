@@ -12,6 +12,7 @@ class RefereeController(object):
 		self.initChar = self.boltSettings['initialCharSignal']
 		self.listening = False
 		self.respond = False
+		self.kill_received = False
 
 	def writeAckString(self):
 		self.serialChannel.write((self.initChar + self.boltSettings.playingField + self.boltSettings.robotID + self.boltSettings.ackMsg).encode)
@@ -22,7 +23,7 @@ class RefereeController(object):
 		f.close()
 
 	def listen(self):
-		while 1:
+		while not self.kill_received:
 			self.CharCounter += 1
 			charSignal = self.serialChannel.read().decode()
 			print(charSignal)
