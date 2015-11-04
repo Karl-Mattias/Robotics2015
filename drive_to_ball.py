@@ -21,9 +21,9 @@ class DriveController(object):
 
 		while self.game_status.status():
 			coordinates = self.get_ball_coordinates.get_coordinates()
-			self.driver.drive(coordinates)
 			self.i += 1
 			if coordinates != -1:
+				self.driver.drive(coordinates)
 				self.i = 0
 				print("Y:", coordinates[1])
 				if coordinates[1] > 450:
@@ -32,7 +32,7 @@ class DriveController(object):
 					self.to_goal.turn()
 					break
 			else:
-				if self.i > 10:
+				if self.i > 5:
 					self.driver.circle()
 
 	def kill(self):
