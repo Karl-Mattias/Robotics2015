@@ -30,6 +30,7 @@ class DriveController(object):
 				if coordinates[1] > 450:
 					print("near ball")
 					self.motor_controller.stop()
+					self.to_goal.turns_searching = 0
 					self.to_goal.turn()
 					break
 			else:
