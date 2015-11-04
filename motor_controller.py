@@ -20,7 +20,7 @@ class MotorController:
 	def move_back_wheel(self, speed=40):
 		self.motor.write("3" + ':sd' + str(speed) + '\n')
 
-	def stop(self):
+	'''def stop(self):
 		self.motor.write("3" + ':sd' + "0" + '\n')
 		self.motor.write("2" + ':sd' + "0" + '\n')
-		self.motor.write("1" + ':sd' + "0" + '\n')
+		self.motor.write("1" + ':sd' + "0" + '\n')'''

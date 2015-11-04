@@ -11,7 +11,7 @@ class DriveTowards:
 	def drive(self, coordinates):
 
 		if coordinates == -1:
-			self.motor_controller.stop()
+			#self.motor_controller.stop()
 			return
 
 		x = coordinates[0]
