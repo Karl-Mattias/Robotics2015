@@ -16,6 +16,7 @@ class RefereeController(object):
 
 	def writeAckString(self):
 		message = (self.initChar + self.boltSettings["playingField"] + self.boltSettings["robotID"] + self.boltSettings["ackMsg"]).encode
+		print("message: " + message)
 		self.serialChannel.write(message)
 
 	def writeLastCtrSignal(self, msg):
