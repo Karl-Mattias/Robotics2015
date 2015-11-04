@@ -28,6 +28,7 @@ class TurnToGoal:
 
 		while self.game_status.status():
 			coordinates = self.get_gate_coordinates.get_coordinates()
+			print("finding slow")
 			if coordinates == -1:
 				self.turn()
 				try_again = True
