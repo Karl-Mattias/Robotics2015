@@ -16,16 +16,21 @@ class TurnToGoal:
 
 	def turn(self):
 
+		try_again = False
 		coordinates = self.get_gate_coordinates.get_coordinates()
 		while coordinates == -1:
 			#self.motor_controller.stop()
 			self.motor_controller.move_back_wheel(60)
 			coordinates = self.get_gate_coordinates.get_coordinates()
+			print("finding fast")
+
+		self.motor_controller.stop()
 
 		while self.game_status.status():
 			coordinates = self.get_gate_coordinates.get_coordinates()
 			if coordinates == -1:
-				continue
+				self.turn()
+				try_again = True
 
 			x = coordinates[0]
 			# closer to looking straight to the gate the smaller the speed
@@ -43,8 +48,9 @@ class TurnToGoal:
 				self.motor_controller.stop()
 				break
 
-		#self.motor_controller.stop()
-		self.motor_controller.move_right_wheel(100)
-		self.motor_controller.move_left_wheel(-100)
-		time.sleep(1)
-		self.motor_controller.stop()
+		if not try_again:
+			self.motor_controller.stop()
+			self.motor_controller.move_right_wheel(100)
+			self.motor_controller.move_left_wheel(-100)
+			time.sleep(1)
+			self.motor_controller.stop()
