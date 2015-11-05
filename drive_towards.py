@@ -47,6 +47,6 @@ class DriveTowards:
 		self.motor_controller.move_back_wheel(10)
 
 	def drive_forward(self):
-		self.motor_controller.move_left_wheel(70)
+		self.motor_controller.move_left_wheel(-70)
 		self.motor_controller.move_right_wheel(70)
 		time.sleep(1.5)
