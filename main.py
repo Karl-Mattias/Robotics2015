@@ -22,6 +22,8 @@ try:
 
 	while 1:
 
+		print(game_status)
+
 		if game_status.status():
 			if initial:
 				drive_towards.drive_forward()
