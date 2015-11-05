@@ -1,5 +1,7 @@
 from referee import RefereeController
 from drive_to_ball import DriveController
+from drive_towards import DriveTowards
+from game_status import GameStatus
 import threading, time
 
 __author__ = 'Gabriel'
@@ -10,18 +12,20 @@ f.close()
 
 referee_controller = RefereeController()
 drive_controller = DriveController()
+game_status = GameStatus()
+drive_towards = DriveTowards()
+initial = True
+
 try:
 	td = threading.Thread(target=referee_controller.listen)
 	td.start()
 
 	while 1:
-		f = open('referee.command', 'r')
-		line = f.readline()
-		print("parse: " + line)
-		play_on = eval(line)
-		f.close()
 
-		if play_on:
+		if game_status.status():
+			if initial:
+				drive_towards.drive_forward()
+				initial = False
 			drive_controller.drive_to_ball()
 
 		time.sleep(1)
