@@ -58,6 +58,7 @@ class TurnToGoal:
 				#self.motor_controller.stop()
 				self.motor_controller.move_back_wheel(20 * -1)
 			else:  # facing goal
+				self.motor_controller.stop()
 				self.motor_controller.move_right_wheel(60)
 				self.motor_controller.move_left_wheel(-60)
 				time.sleep(1)

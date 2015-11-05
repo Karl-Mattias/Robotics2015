@@ -22,7 +22,7 @@ try:
 
 	while 1:
 
-		print(game_status)
+		print(game_status.status())
 
 		if game_status.status():
 			if initial:
