@@ -49,4 +49,4 @@ class DriveTowards:
 	def drive_forward(self):
 		self.motor_controller.move_left_wheel(-70)
 		self.motor_controller.move_right_wheel(70)
-		time.sleep(1.5)
+		time.sleep(2)
