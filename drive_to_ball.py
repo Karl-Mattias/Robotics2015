@@ -34,6 +34,9 @@ class DriveController(object):
 					print("goal too close!")
 					self.driver.circle()'''
 
+				if self.i > 5:
+					self.motor_controller.stop()
+
 				self.driver.drive(ball_coordinates)
 				self.i = 0
 				if y_ball > 450:
