@@ -29,7 +29,7 @@ class DriveController(object):
 
 			if ball_coordinates != -1:
 				y_ball = ball_coordinates[1]
-				if goal_coordinates != -1 and goal_coordinates[1] < y_ball + 10:
+				if goal_coordinates != -1 and goal_coordinates[1] < y_ball + 5:
 					print("goal too close!")
 					self.driver.circle()
 
