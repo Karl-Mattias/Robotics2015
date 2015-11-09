@@ -7,7 +7,7 @@ import threading, time
 __author__ = 'Gabriel'
 
 f = open('referee.command', 'w')
-f.write("True")
+f.write("False")
 f.close()
 
 referee_controller = RefereeController()
