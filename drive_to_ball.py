@@ -24,14 +24,15 @@ class DriveController(object):
 
 		while self.game_status.status():
 			ball_coordinates = self.get_ball_coordinates.get_coordinates()
-			goal_coordinates = self.get_goal_coordinates.get_coordinates()
+			# goal_coordinates = self.get_goal_coordinates.get_coordinates()
 			print("i = " + str(self.i))
 
 			if ball_coordinates != -1:
 				y_ball = ball_coordinates[1]
-				if goal_coordinates != -1 and goal_coordinates[1] < y_ball + 5:
+				# not working this way
+				'''if goal_coordinates != -1 and goal_coordinates[1] < y_ball + 5:
 					print("goal too close!")
-					self.driver.circle()
+					self.driver.circle()'''
 
 				self.driver.drive(ball_coordinates)
 				self.i = 0
