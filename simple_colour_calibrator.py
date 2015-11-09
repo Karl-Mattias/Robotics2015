@@ -14,7 +14,7 @@ def nothing(x):
 	pass
 
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 cv2.namedWindow('image')
 
@@ -97,6 +97,8 @@ while True:
 	if contours:
 		cnt = contours[0]
 		M = cv2.moments(cnt)
+		rect = cv2.minAreaRect(cnt)
+		print("rect: ", rect)
 		try:
 			cx = int(M['m10']/M['m00'])
 			cy = int(M['m01']/M['m00'])
@@ -105,7 +107,7 @@ while True:
 		print(str(cx) + ", " + str(cy))
 
 		(x,y),radius = cv2.minEnclosingCircle(cnt)
-		center = (int(x),int(y))
+		center = (int(x), int(y))
 		radius = int(radius)
 		cv2.circle(frame, center, radius, (0, 255, 0), 2)
 		cv2.circle(closing, center, radius, (0, 255, 0), 2)

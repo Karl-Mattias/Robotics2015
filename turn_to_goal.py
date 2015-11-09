@@ -17,10 +17,8 @@ class TurnToGoal:
 
 	def turn(self):
 
-
 		coordinates = self.get_gate_coordinates.get_coordinates()
 		while coordinates == -1 and self.game_status.status():
-			#self.motor_controller.stop()
 			self.turns_searching += 1
 			self.motor_controller.move_back_wheel(60)
 			coordinates = self.get_gate_coordinates.get_coordinates()
@@ -46,21 +44,21 @@ class TurnToGoal:
 				break
 
 			x = coordinates[0]
+			width = coordinates[2]
+			print("width: " + str(width))
 			# closer to looking straight to the gate the smaller the speed
 			# speed = (abs(x - 325) / 2)
 			# if speed > 20:
 			# 	speed = 20
 
-			if x < 310:
-				#self.motor_controller.stop()
+			if x < 350 - width:
 				self.motor_controller.move_back_wheel(20)
-			elif x > 340:
-				#self.motor_controller.stop()
+			elif x > 350 + width:
 				self.motor_controller.move_back_wheel(20 * -1)
 			else:  # facing goal
 				self.motor_controller.stop()
-				self.motor_controller.move_right_wheel(60)
-				self.motor_controller.move_left_wheel(-60)
-				time.sleep(1)
+				self.motor_controller.move_right_wheel(80)
+				self.motor_controller.move_left_wheel(-80)
+				time.sleep(1.5)
 				self.motor_controller.stop()
 				break

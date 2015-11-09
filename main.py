@@ -32,7 +32,6 @@ try:
 		else:
 			initial = True
 
-		time.sleep(1)
 except KeyboardInterrupt:
 	referee_controller.kill_received = True
 	drive_controller.kill()

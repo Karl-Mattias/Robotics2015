@@ -49,9 +49,10 @@ class GetCoordinates:
 		coordinates = -1
 		for cnt in contours:
 			area = cv2.contourArea(cnt)
+			rect = cv2.minAreaRect(cnt)
+			width = rect[1][0]
 			if area > biggest_size:
 				biggest_size = area
-				cnt = contours[0]
 				M = cv2.moments(cnt)
 				try:
 					cx = int(M['m10']/M['m00'])
@@ -60,7 +61,7 @@ class GetCoordinates:
 					coordinates = -1
 					print("zero division")
 					continue
-				coordinates = (cx, cy, biggest_size)
+				coordinates = (cx, cy, width)
 
 		self.cap.release()
 
