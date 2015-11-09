@@ -12,11 +12,12 @@ class DriveTowards:
 	def drive(self, coordinates):
 
 		if coordinates == -1:
+			#self.motor_controller.stop()
 			return
 
 		x = coordinates[0]
 		y = coordinates[1]
-		# width = coordinates[2]
+		# size = coordinates[2]
 
 		if y < 150:
 			speed = 40
@@ -31,19 +32,21 @@ class DriveTowards:
 
 		if x > 325:
 			print("move right")
+			#self.motor_controller.stop()
 			self.motor_controller.move_left_wheel((speed + turning_speed) * -1)
 			self.motor_controller.move_right_wheel(speed - turning_speed)
 		else:
 			print("move left")
+			#self.motor_controller.stop()
 			self.motor_controller.move_right_wheel(speed + turning_speed)
 			self.motor_controller.move_left_wheel((speed - turning_speed) * -1)
 
 	def circle(self):
-		self.motor_controller.move_left_wheel(7)
-		self.motor_controller.move_right_wheel(7)
-		self.motor_controller.move_back_wheel(7)
+		self.motor_controller.move_left_wheel(10)
+		self.motor_controller.move_right_wheel(10)
+		self.motor_controller.move_back_wheel(10)
 
 	def drive_forward(self):
 		self.motor_controller.move_left_wheel(-70)
 		self.motor_controller.move_right_wheel(70)
-		time.sleep(2)
+		time.sleep(1.5)
