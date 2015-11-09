@@ -6,7 +6,7 @@ import cv2
 st = BoltSettings()
 settingsDict = st.read_dict()
 # opg = settingsDict['own_goal_color']
-opg = "ball"
+opg = "yellow"
 
 
 # Main Module Begins Here

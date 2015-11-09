@@ -39,9 +39,9 @@ class DriveTowards:
 			self.motor_controller.move_left_wheel((speed - turning_speed) * -1)
 
 	def circle(self):
-		self.motor_controller.move_left_wheel(10)
-		self.motor_controller.move_right_wheel(10)
-		self.motor_controller.move_back_wheel(10)
+		self.motor_controller.move_left_wheel(7)
+		self.motor_controller.move_right_wheel(7)
+		self.motor_controller.move_back_wheel(7)
 
 	def drive_forward(self):
 		self.motor_controller.move_left_wheel(-70)

@@ -20,7 +20,7 @@ V_low_ball,127
 V_top_ball,255
 -,-
 playingField,B
-robotID,A
+robotID,C
 ackMsg,ACK-----
 initialCharSignal,a
 allRobotsChar,X
