@@ -35,9 +35,8 @@ try:
 				drive_towards.drive_forward()
 				initial = False
 			drive_controller.drive_to_ball()
-		else:
-			initial = True
 
+		time.sleep(1)
 except KeyboardInterrupt:
 	referee_controller.kill_received = True
 	drive_controller.kill()
