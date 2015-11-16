@@ -2,6 +2,7 @@ from get_coordinates import GetCoordinates
 from motor_controller import MotorController
 from settings import BoltSettings
 from game_status import GameStatus
+from mainboard_controller import MainBoardController
 import time
 
 __author__ = 'Karl'
@@ -13,12 +14,14 @@ class TurnToGoal:
 		self.get_gate_coordinates = GetCoordinates(bolt_settings["opponent_goal_color"])
 		self.motor_controller = MotorController()
 		self.game_status = GameStatus()
+		self.mainboard_controller = MainBoardController()
 		self.turns_searching = 0
 
 	def turn(self):
 
 		coordinates = self.get_gate_coordinates.get_coordinates()
 		while coordinates == -1 and self.game_status.status():
+			self.mainboard_controller.ping()
 			self.turns_searching += 1
 			self.motor_controller.move_back_wheel(60)
 			coordinates = self.get_gate_coordinates.get_coordinates()
@@ -33,6 +36,7 @@ class TurnToGoal:
 
 		in_this = 0
 		while self.game_status.status() and self.turns_searching < 30:
+			self.mainboard_controller.ping()
 			in_this += 1
 			self.turns_searching += 1
 			coordinates = self.get_gate_coordinates.get_coordinates()
@@ -57,8 +61,6 @@ class TurnToGoal:
 				self.motor_controller.move_back_wheel(20 * -1)
 			else:  # facing goal
 				self.motor_controller.stop()
-				self.motor_controller.move_right_wheel(70)
-				self.motor_controller.move_left_wheel(-70)
-				time.sleep(1)
-				self.motor_controller.stop()
+				self.mainboard_controller.kick()
+				self.mainboard_controller.stop_dribbler()
 				break

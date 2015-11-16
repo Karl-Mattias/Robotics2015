@@ -1,4 +1,5 @@
 from motor_controller import MotorController
+from mainboard_controller import MainBoardController
 import time
 
 __author__ = 'Karl'
@@ -8,6 +9,7 @@ class DriveTowards:
 
 	def __init__(self):
 		self.motor_controller = MotorController()
+		self.mainboard_controller = MainBoardController()
 
 	def drive(self, coordinates):
 
@@ -46,4 +48,7 @@ class DriveTowards:
 	def drive_forward(self):
 		self.motor_controller.move_left_wheel(-70)
 		self.motor_controller.move_right_wheel(70)
-		time.sleep(2)
+		time.sleep(1)
+		self.mainboard_controller.ping()
+		time.sleep(1)
+		self.mainboard_controller.ping()
