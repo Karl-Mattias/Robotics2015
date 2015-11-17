@@ -9,5 +9,5 @@ class GameStatus(object):
 			command_file.close()
 			last_status = status
 			return status
-		except SyntaxError: # when file is empty during writing
+		except SyntaxError:  # when file is empty during writing
 			return last_status
