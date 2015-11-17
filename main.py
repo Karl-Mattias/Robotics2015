@@ -24,7 +24,7 @@ try:
 	td = threading.Thread(target=referee_controller.listen)
 	td.start()
 
-	while 1:
+	while True:
 
 		print(game_status.status())
 
@@ -36,7 +36,6 @@ try:
 				initial = False
 			drive_controller.drive_to_ball()
 
-		time.sleep(1)
 except KeyboardInterrupt:
 	referee_controller.kill_received = True
 	drive_controller.kill()
