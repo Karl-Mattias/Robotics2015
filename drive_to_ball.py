@@ -44,12 +44,15 @@ class DriveController(object):
 				if y_ball > 450:
 					print("near ball")
 					self.mainboard_controller.start_dribbler()
-
+					self.motor_controller.stop()
+					self.to_goal.turns_searching = 0
+					self.to_goal.turn()
+				'''
 				if self.mainboard_controller.has_ball():
 					print("has ball")
 					self.motor_controller.stop()
 					self.to_goal.turns_searching = 0
-					self.to_goal.turn()
+					self.to_goal.turn()'''
 
 			else:
 				# to avoid cases when just losing the blob for one frame

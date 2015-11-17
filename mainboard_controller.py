@@ -25,7 +25,7 @@ class MainBoardController:
 	def kick(self):
 		self.mainboard.write("k")
 		self.charge()
-
+'''
 	def has_ball(self):
 		self.mainboard.write("bl")
 		line = self.mainboard.readline()
@@ -34,3 +34,4 @@ class MainBoardController:
 			return True
 		else:
 			return False
+'''
