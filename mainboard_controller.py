@@ -7,8 +7,8 @@ __author__ = 'Karl'
 class MainBoardController:
 
 	def __init__(self):
-		os.chmod("/dev/ttyACM3", 755)  # set permissions to read serial
-		self.mainboard = serial.Serial("/dev/ttyACM3", 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
+		os.chmod("/dev/ttyACM4", 755)  # set permissions to read serial
+		self.mainboard = serial.Serial("/dev/ttyACM4", 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
 
 	def ping(self):
 		self.mainboard.write("p")
