@@ -65,7 +65,7 @@ class TurnToGoal:
 				self.motor_controller.stop()
 				self.mainboard_controller.kick()
 				if self.mainboard_controller.has_ball():
-					sleep(0.5)
+					sleep(1)
 					print("kick again")
 					self.mainboard_controller.kick()
 				break
