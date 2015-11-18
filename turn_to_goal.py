@@ -65,7 +65,7 @@ class TurnToGoal:
 				self.motor_controller.stop()
 				#self.mainboard_controller.kick()
 				self.mainboard_controller.charge()
-				sleep(2)
+				sleep(4)
 				print("kick")
 				self.mainboard_controller.kick()
 				break

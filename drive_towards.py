@@ -21,24 +21,31 @@ class DriveTowards:
 		# width = coordinates[2]
 
 		if y < 150:
-			speed = 40
+			speed = 60
 		else:
-			speed = 30
+			speed = 40
 
-		# the added multiplier to differentiate the wheel speeds.
+
+		'''# the added multiplier to differentiate the wheel speeds.
 		# the smaller the y value the least is needed to turn, because the farthest is the ball.
 		# the closer the x value is to the central value (325) the least is needed to turn.
 		turning_speed = ((abs(x - 325) / 325.0) * ((650 - y) / 650.0)) * speed
-		print("turning speed: " + str(turning_speed))
+		print("turning speed: " + str(turning_speed))'''
 
-		if x > 325:
+		if x > 350:
 			print("move right")
-			self.motor_controller.move_left_wheel((speed + turning_speed) * -1)
-			self.motor_controller.move_right_wheel(speed - turning_speed)
-		else:
+			self.motor_controller.move_left_wheel((speed + 5) * -1)
+			self.motor_controller.move_right_wheel(speed - 5)
+			self.motor_controller.move_back_wheel(5)
+		elif x < 300:
 			print("move left")
-			self.motor_controller.move_right_wheel(speed + turning_speed)
-			self.motor_controller.move_left_wheel((speed - turning_speed) * -1)
+			self.motor_controller.move_right_wheel(speed + 5)
+			self.motor_controller.move_left_wheel((speed - 5) * -1)
+			self.motor_controller.move_back_wheel(5)
+		else:
+			print("move straght")
+			self.motor_controller.move_right_wheel(speed + 5)
+			self.motor_controller.move_left_wheel((speed + 5) * -1)
 
 	def circle(self):
 		self.motor_controller.move_left_wheel(7)
