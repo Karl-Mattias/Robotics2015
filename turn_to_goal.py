@@ -62,5 +62,4 @@ class TurnToGoal:
 			else:  # facing goal
 				self.motor_controller.stop()
 				self.mainboard_controller.kick()
-				self.mainboard_controller.stop_dribbler()
 				break
