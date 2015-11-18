@@ -3,7 +3,6 @@ from motor_controller import MotorController
 from settings import BoltSettings
 from game_status import GameStatus
 from mainboard_controller import MainBoardController
-import time
 
 __author__ = 'Karl'
 
@@ -50,7 +49,7 @@ class TurnToGoal:
 
 			x = coordinates[0]
 			width = coordinates[2]
-			print("width: " + str(width))
+			# print("width: " + str(width))
 			# closer to looking straight to the gate the smaller the speed
 			# speed = (abs(x - 325) / 2)
 			# if speed > 20:
