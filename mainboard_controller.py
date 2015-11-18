@@ -15,7 +15,7 @@ class MainBoardController:
 		self.mainboard.write("p\n")
 
 	def start_dribbler(self):
-		self.mainboard.write("dm50\n")
+		self.mainboard.write("dm100\n")
 
 	def stop_dribbler(self):
 		self.mainboard.write("dm0\n")
