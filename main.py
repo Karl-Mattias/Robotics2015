@@ -36,7 +36,7 @@ try:
 			if initial:
 				drive_towards.drive_forward()
 				initial = False
-			drive_controller.drive_to_ball()
+			drive_controller.drive_to_ball(mainboard_controller)
 
 except KeyboardInterrupt:
 	referee_controller.kill_received = True

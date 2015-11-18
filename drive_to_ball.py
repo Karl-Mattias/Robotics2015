@@ -4,7 +4,7 @@ from turn_to_goal import TurnToGoal
 from game_status import GameStatus
 from motor_controller import MotorController
 from settings import BoltSettings
-from mainboard_controller import MainBoardController
+# from mainboard_controller import MainBoardController
 __author__ = 'Karl'
 
 
@@ -19,15 +19,15 @@ class DriveController(object):
 		self.i = 0
 		self.game_status = GameStatus()
 		self.motor_controller = MotorController()
-		self.mainboard_controller = MainBoardController()
+		# self.mainboard_controller = MainBoardController()
 
-	def drive_to_ball(self):
+	def drive_to_ball(self, mainboard_controller):
 
 		while self.game_status.status():
 			ball_coordinates = self.get_ball_coordinates.get_coordinates()
 			# goal_coordinates = self.get_goal_coordinates.get_coordinates()
 			print("i = " + str(self.i))
-			self.mainboard_controller.ping()
+			mainboard_controller.ping()
 
 			if ball_coordinates != -1:
 				y_ball = ball_coordinates[1]
@@ -43,9 +43,9 @@ class DriveController(object):
 				self.i = 0
 				if y_ball > 450:
 					print("near ball")
-					self.mainboard_controller.start_dribbler()
+					mainboard_controller.start_dribbler()
 
-				if self.mainboard_controller.has_ball():
+				if mainboard_controller.has_ball():
 					print("has ball")
 					self.motor_controller.stop()
 					self.to_goal.turns_searching = 0
