@@ -27,6 +27,9 @@ class MainBoardController:
 		self.mainboard.write("k\n")
 		self.charge()
 
+	def has_ball(self):
+		return self.has_ball
+
 	def read_from_port(self):
 		while True:
 			line = self.mainboard.readline().strip()

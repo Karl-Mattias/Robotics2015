@@ -45,7 +45,7 @@ class DriveController(object):
 					print("near ball")
 					self.mainboard_controller.start_dribbler()
 
-				if self.mainboard_controller.has_ball:
+				if self.mainboard_controller.has_ball():
 					print("has ball")
 					self.motor_controller.stop()
 					self.to_goal.turns_searching = 0
