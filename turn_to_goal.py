@@ -22,13 +22,13 @@ class TurnToGoal:
 		while coordinates == -1 and self.game_status.status():
 			self.mainboard_controller.ping()
 			self.turns_searching += 1
-			self.motor_controller.move_back_wheel(60)
+			self.motor_controller.move_back_wheel(40)
 			coordinates = self.get_gate_coordinates.get_coordinates()
 			print("finding fast")
 
 			# it cannot find gate (might be in the corner)
 			# for now just find new ball
-			if self.turns_searching > 30:
+			if self.turns_searching > 15:
 				break
 
 		self.motor_controller.stop()
