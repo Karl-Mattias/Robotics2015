@@ -37,6 +37,7 @@ class DriveController(object):
 					self.motor_controller.stop()
 					self.to_goal.turns_searching = 0
 					self.to_goal.turn()
+					continue
 
 				y_ball = ball_coordinates[1]
 				# not working this way
