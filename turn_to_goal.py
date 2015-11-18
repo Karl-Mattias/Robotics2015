@@ -55,9 +55,9 @@ class TurnToGoal:
 			# if speed > 20:
 			# 	speed = 20
 
-			if x < 350 - width/4:
+			if x < 350 - width/5:
 				self.motor_controller.move_back_wheel(20)
-			elif x > 350 + width/4:
+			elif x > 350 + width/5:
 				self.motor_controller.move_back_wheel(20 * -1)
 			else:  # facing goal
 				self.motor_controller.stop()
