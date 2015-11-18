@@ -26,7 +26,7 @@ class DriveController(object):
 		while self.game_status.status():
 			ball_coordinates = self.get_ball_coordinates.get_coordinates()
 			# goal_coordinates = self.get_goal_coordinates.get_coordinates()
-			print("i = " + str(self.i))
+			# print("i = " + str(self.i))
 			mainboard_controller.ping()
 
 			if ball_coordinates != -1:

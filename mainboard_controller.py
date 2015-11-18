@@ -34,8 +34,6 @@ class MainBoardController:
 		self.is_ball = False
 		while True:
 			line = self.mainboard.readline().strip()
-			print("read from serial: " + line)
-			print(line+"==<bl:1>")
 			'''if "1" in line:
 				return True'''
 			if line == "<bl:1>":
