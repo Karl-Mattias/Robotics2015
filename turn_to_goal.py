@@ -61,6 +61,8 @@ class TurnToGoal:
 			elif x > 350 + width/4:
 				self.motor_controller.move_back_wheel(20 * -1)
 			else:  # facing goal
+				print("facing")
+				self.mainboard_controller.charge()
 				self.motor_controller.stop()
 				self.mainboard_controller.kick()
 				break
