@@ -37,6 +37,7 @@ class TurnToGoal:
 		in_this = 0
 		while self.game_status.status() and self.turns_searching < 30:
 			self.mainboard_controller.ping()
+			self.mainboard_controller.charge()
 			in_this += 1
 			self.turns_searching += 1
 			coordinates = self.get_gate_coordinates.get_coordinates()

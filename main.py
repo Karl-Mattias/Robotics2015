@@ -33,7 +33,6 @@ try:
 		if game_status.status():
 			mainboard_controller.ping()
 			mainboard_controller.start_dribbler()
-			mainboard_controller.charge()
 			print("start dribbler")
 			if initial:
 				drive_towards.drive_forward()
