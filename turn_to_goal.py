@@ -37,10 +37,10 @@ class TurnToGoal:
 		in_this = 0
 		while self.game_status.status() and self.turns_searching < 30:
 			self.mainboard_controller.ping()
-			self.mainboard_controller.charge()
 			in_this += 1
 			self.turns_searching += 1
 			coordinates = self.get_gate_coordinates.get_coordinates()
+			self.mainboard_controller.charge()
 			print("finding slow")
 			if coordinates == -1:
 				if in_this < 5:
@@ -61,8 +61,8 @@ class TurnToGoal:
 			elif x > 350 + width/4:
 				self.motor_controller.move_back_wheel(20 * -1)
 			else:  # facing goal
-				print("facing")
-				self.mainboard_controller.charge()
+				print("facing!")
+				# self.mainboard_controller.charge()
 				self.motor_controller.stop()
 				self.mainboard_controller.kick()
 				break

@@ -1,6 +1,6 @@
 import os
 import serial
-
+from datetime import datetime
 __author__ = 'Karl'
 
 
@@ -21,9 +21,11 @@ class MainBoardController:
 		self.mainboard.write("dm0\n")
 
 	def charge(self):
+		print(str(datetime.now()) + " | charge")
 		self.mainboard.write("co1\n")
 
 	def kick(self):
+		print(str(datetime.now()) + " | kick")
 		self.mainboard.write("k\n")
 		self.charge()
 
