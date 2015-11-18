@@ -33,7 +33,7 @@ class TurnToGoal:
 				break
 
 		self.motor_controller.stop()
-		self.mainboard_controller.charge()
+
 
 		in_this = 0
 		while self.game_status.status():
@@ -63,7 +63,8 @@ class TurnToGoal:
 				print("facing!")
 				# self.mainboard_controller.charge()
 				self.motor_controller.stop()
-				self.mainboard_controller.kick()
+				#self.mainboard_controller.kick()
+				self.mainboard_controller.charge()
 				sleep(1)
 				print("kick again")
 				self.mainboard_controller.kick()
