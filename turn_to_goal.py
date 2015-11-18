@@ -24,7 +24,7 @@ class TurnToGoal:
 			self.turns_searching += 1
 			self.motor_controller.move_back_wheel(40)
 			coordinates = self.get_gate_coordinates.get_coordinates()
-			print("finding fast: " + coordinates)
+			print("finding fast: " + str(coordinates))
 
 			# it cannot find gate (might be in the corner)
 			# for now just find new ball
@@ -39,7 +39,7 @@ class TurnToGoal:
 			in_this += 1
 			coordinates = self.get_gate_coordinates.get_coordinates()
 			self.mainboard_controller.charge()
-			print("finding slow: " + coordinates)
+			print("finding slow: " + str(coordinates))
 			if coordinates == -1:
 				if in_this < 5:
 					continue
