@@ -30,7 +30,7 @@ class DriveController(object):
 			mainboard_controller.ping()
 			mainboard_controller.start_dribbler()  # just in case the dribbler did not start
 
-			if ball_coordinates != -1 or mainboard_controller.hasball():
+			if ball_coordinates != -1 or mainboard_controller.has_ball():
 
 				if mainboard_controller.has_ball():
 					print("has ball")
@@ -49,7 +49,6 @@ class DriveController(object):
 
 				self.driver.drive(ball_coordinates)
 				self.i = 0
-
 
 			else:
 				# to avoid cases when just losing the blob for one frame
