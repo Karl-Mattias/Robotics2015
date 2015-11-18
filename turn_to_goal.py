@@ -33,13 +33,13 @@ class TurnToGoal:
 				break
 
 		self.motor_controller.stop()
+		self.mainboard_controller.charge()
 
 		in_this = 0
 		while self.game_status.status():
 			self.mainboard_controller.ping()
 			in_this += 1
 			coordinates = self.get_gate_coordinates.get_coordinates()
-			self.mainboard_controller.charge()
 			print("finding slow: " + str(coordinates))
 			if coordinates == -1:
 				if in_this < 5:
@@ -64,8 +64,7 @@ class TurnToGoal:
 				# self.mainboard_controller.charge()
 				self.motor_controller.stop()
 				self.mainboard_controller.kick()
-				if self.mainboard_controller.has_ball():
-					sleep(1)
-					print("kick again")
-					self.mainboard_controller.kick()
+				sleep(1)
+				print("kick again")
+				self.mainboard_controller.kick()
 				break
