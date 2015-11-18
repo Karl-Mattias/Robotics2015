@@ -52,6 +52,7 @@ class DriveController(object):
 				self.i = 0
 
 			else:
+				mainboard_controller.charge()
 				# to avoid cases when just losing the blob for one frame
 				self.i += 1
 				if self.i > 5:

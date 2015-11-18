@@ -23,7 +23,7 @@ class DriveTowards:
 		if y < 150:
 			speed = 70
 		else:
-			speed = 50
+			speed = 40
 
 
 		'''# the added multiplier to differentiate the wheel speeds.
