@@ -21,9 +21,9 @@ class DriveTowards:
 		# width = coordinates[2]
 
 		if y < 150:
-			speed = 60
+			speed = 70
 		else:
-			speed = 40
+			speed = 50
 
 
 		'''# the added multiplier to differentiate the wheel speeds.
@@ -34,18 +34,18 @@ class DriveTowards:
 
 		if x > 350:
 			print("move right")
-			self.motor_controller.move_left_wheel((speed + 5) * -1)
-			self.motor_controller.move_right_wheel(speed - 5)
-			self.motor_controller.move_back_wheel(5)
+			self.motor_controller.move_left_wheel((speed + 8) * -1)
+			self.motor_controller.move_right_wheel(speed - 8)
+			self.motor_controller.move_back_wheel(8)
 		elif x < 300:
 			print("move left")
-			self.motor_controller.move_right_wheel(speed + 5)
-			self.motor_controller.move_left_wheel((speed - 5) * -1)
-			self.motor_controller.move_back_wheel(5)
+			self.motor_controller.move_right_wheel(speed + 8)
+			self.motor_controller.move_left_wheel((speed - 8) * -1)
+			self.motor_controller.move_back_wheel(8)
 		else:
 			print("move straght")
-			self.motor_controller.move_right_wheel(speed + 5)
-			self.motor_controller.move_left_wheel((speed + 5) * -1)
+			self.motor_controller.move_right_wheel(speed + 8)
+			self.motor_controller.move_left_wheel((speed + 8) * -1)
 
 	def circle(self):
 		self.motor_controller.move_left_wheel(7)
