@@ -6,7 +6,7 @@ __author__ = 'Gabriel'
 
 class RefereeController(object):
 	def __init__(self):
-		self.serialChannel = serial.Serial("/dev/ttyACM5", 9600)
+		self.serialChannel = serial.Serial("/dev/ttyACM0", 9600)
 		self.boltSettings = BoltSettings().read_dict()
 		self.CharCounter = 0
 		self.initChar = self.boltSettings['initialCharSignal']
