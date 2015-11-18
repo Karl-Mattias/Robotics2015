@@ -9,7 +9,6 @@ class MainBoardController:
 	def __init__(self):
 		os.chmod("/dev/ttyACM1", 755)  # set permissions to read serial
 		self.mainboard = serial.Serial("/dev/ttyACM1", 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
-		self.is_ball = False
 
 	def ping(self):
 		self.mainboard.write("p\n")
@@ -31,6 +30,7 @@ class MainBoardController:
 		return self.is_ball
 
 	def read_from_port(self):
+		self.is_ball = False
 		while True:
 			line = self.mainboard.readline().strip()
 			print("read from serial: " + line)
