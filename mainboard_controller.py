@@ -11,27 +11,26 @@ class MainBoardController:
 		self.mainboard = serial.Serial("/dev/ttyACM4", 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
 
 	def ping(self):
-		self.mainboard.write("p")
+		self.mainboard.write("p\n")
 
 	def start_dribbler(self):
-		self.mainboard.write("dm50")
+		self.mainboard.write("dm50\n")
 
 	def stop_dribbler(self):
-		self.mainboard.write("dm0")
+		self.mainboard.write("dm0\n")
 
 	def charge(self):
-		self.mainboard.write("co1")
+		self.mainboard.write("co1\n")
 
 	def kick(self):
-		self.mainboard.write("k")
+		self.mainboard.write("k\n")
 		self.charge()
-'''
+
 	def has_ball(self):
-		self.mainboard.write("bl")
+		self.mainboard.write("bl\n")
 		line = self.mainboard.readline()
 		print("read from serial: " + line)
 		if line == "<bl:1>":
 			return True
 		else:
 			return False
-'''
