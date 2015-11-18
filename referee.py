@@ -14,15 +14,15 @@ class RefereeController(object):
 		self.respond = False
 		self.kill_received = False
 
-	def writeAckString(self):
+	def write_ack_string(self):
 
-		print("playingField: " + self.initChar +  self.boltSettings["playingField"] + self.boltSettings["robotID"] + self.boltSettings["ackMsg"])
+		print("playingField: " + self.initChar + self.boltSettings["playingField"] + self.boltSettings["robotID"] + self.boltSettings["ackMsg"])
 		print("intChar: " + (self.initChar + self.boltSettings["playingField"] + self.boltSettings["robotID"] + self.boltSettings["ackMsg"]).encode())
 		message = (self.initChar + self.boltSettings["playingField"] + self.boltSettings["robotID"] + self.boltSettings["ackMsg"]).encode()
 		print("message: " + message)
 		self.serialChannel.write(message)
 
-	def writeLastCtrSignal(self, msg):
+	def write_last_ctr_signal(self, msg):
 		f = open('referee.command', 'w')
 		f.write(msg)
 		f.close()
@@ -30,40 +30,40 @@ class RefereeController(object):
 	def listen(self):
 		while not self.kill_received:
 			self.CharCounter += 1
-			charSignal = self.serialChannel.read().decode()
-			print(charSignal)
-			if charSignal == self.initChar:
+			char_signal = self.serialChannel.read().decode()
+			print(char_signal)
+			if char_signal == self.initChar:
 				self.CharCounter = 0
 				self.listening = True
 				continue
 			if not self.listening:
 				continue  # wait for next a
-			if self.CharCounter == 1 and charSignal != self.boltSettings['playingField']:
+			if self.CharCounter == 1 and char_signal != self.boltSettings['playingField']:
 				self.listening = False
-			if self.CharCounter == 2 and charSignal != self.boltSettings['robotID'] and charSignal != self.boltSettings['allRobotsChar']:
+			if self.CharCounter == 2 and char_signal != self.boltSettings['robotID'] and char_signal != self.boltSettings['allRobotsChar']:
 				self.listening = False
-			if self.CharCounter == 2 and charSignal == self.boltSettings['robotID']:
+			if self.CharCounter == 2 and char_signal == self.boltSettings['robotID']:
 				self.respond = True
-			if self.CharCounter == 2 and charSignal == self.boltSettings['allRobotsChar']:
+			if self.CharCounter == 2 and char_signal == self.boltSettings['allRobotsChar']:
 				self.respond = False
 			if self.CharCounter == 2 and self.listening:
 				msg = ""
 				for self.CharCounter in range(3, 12):
-					charSignal = self.serialChannel.read().decode()
-					print(charSignal)
-					if charSignal == self.initChar:
+					char_signal = self.serialChannel.read().decode()
+					print(char_signal)
+					if char_signal == self.initChar:
 						self.CharCounter = 0
 						break
-					if charSignal == "-":
+					if char_signal == "-":
 						self.listening = False
 						break
-					msg += charSignal
+					msg += char_signal
 					if msg in ["START", "STOP"]:
 						print(msg)
 						if self.respond:
-							self.writeAckString()
+							self.write_ack_string()
 
 						if msg == "START":
-							self.writeLastCtrSignal('True')
+							self.write_last_ctr_signal('True')
 						else:
-							self.writeLastCtrSignal('False')
+							self.write_last_ctr_signal('False')

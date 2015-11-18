@@ -36,5 +36,5 @@ class MainBoardController:
 				return True'''
 			if line == "<bl:1>":
 				self.has_ball = True
-			else:
+			if line == "<bl:0>":
 				self.has_ball = False

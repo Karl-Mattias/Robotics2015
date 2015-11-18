@@ -22,7 +22,7 @@ initial = True
 
 try:
 	td1 = threading.Thread(target=referee_controller.listen)
-	td2 = threading.Thread(target=mainboard_controller.read_from_port())
+	td2 = threading.Thread(target=mainboard_controller.read_from_port)
 	td1.start()
 	td2.start()
 
