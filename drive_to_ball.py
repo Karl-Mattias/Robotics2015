@@ -28,8 +28,16 @@ class DriveController(object):
 			# goal_coordinates = self.get_goal_coordinates.get_coordinates()
 			# print("i = " + str(self.i))
 			mainboard_controller.ping()
+			mainboard_controller.start_dribbler()  # just in case the dribbler did not start
 
-			if ball_coordinates != -1:
+			if ball_coordinates != -1 or mainboard_controller.hasball():
+
+				if mainboard_controller.has_ball():
+					print("has ball")
+					self.motor_controller.stop()
+					self.to_goal.turns_searching = 0
+					self.to_goal.turn()
+
 				y_ball = ball_coordinates[1]
 				# not working this way
 				'''if goal_coordinates != -1 and goal_coordinates[1] < y_ball + 5:
@@ -41,15 +49,7 @@ class DriveController(object):
 
 				self.driver.drive(ball_coordinates)
 				self.i = 0
-				'''if y_ball > 450:
-					print("near ball")
-					mainboard_controller.start_dribbler()'''
 
-				if mainboard_controller.has_ball():
-					print("has ball")
-					self.motor_controller.stop()
-					self.to_goal.turns_searching = 0
-					self.to_goal.turn()
 
 			else:
 				# to avoid cases when just losing the blob for one frame
