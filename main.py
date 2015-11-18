@@ -21,8 +21,9 @@ mainboard_controller = MainBoardController()
 initial = True
 
 try:
-	td = threading.Thread(target=referee_controller.listen)
-	td.start()
+	td1 = threading.Thread(target=referee_controller.listen)
+	td2 = threading.Thread(target=mainboard_controller.read_from_port())
+	td1.start()
 
 	while True:
 
