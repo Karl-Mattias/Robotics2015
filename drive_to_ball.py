@@ -41,9 +41,9 @@ class DriveController(object):
 
 				self.driver.drive(ball_coordinates)
 				self.i = 0
-				if y_ball > 450:
+				'''if y_ball > 450:
 					print("near ball")
-					mainboard_controller.start_dribbler()
+					mainboard_controller.start_dribbler()'''
 
 				if mainboard_controller.has_ball():
 					print("has ball")

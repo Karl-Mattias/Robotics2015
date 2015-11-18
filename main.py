@@ -25,6 +25,7 @@ try:
 	td2 = threading.Thread(target=mainboard_controller.read_from_port)
 	td1.start()
 	td2.start()
+	mainboard_controller.start_dribbler()
 
 	while True:
 
