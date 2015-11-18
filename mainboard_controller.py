@@ -30,7 +30,9 @@ class MainBoardController:
 		self.mainboard.write("bl\n")
 		line = self.mainboard.readline()
 		print("read from serial: " + line)
-		print("line=="+"<bl:1>")
+		print(line+"==<bl:1>")
+		if "1" in line:
+			return True
 		if line == "<bl:1>":
 			return True
 		else:
