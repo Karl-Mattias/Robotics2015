@@ -3,6 +3,7 @@ from motor_controller import MotorController
 from settings import BoltSettings
 from game_status import GameStatus
 from mainboard_controller import MainBoardController
+from time import sleep
 
 __author__ = 'Karl'
 
@@ -63,4 +64,8 @@ class TurnToGoal:
 				# self.mainboard_controller.charge()
 				self.motor_controller.stop()
 				self.mainboard_controller.kick()
+				if self.mainboard_controller.has_ball():
+					sleep(0.5)
+					print("kick again")
+					self.mainboard_controller.kick()
 				break
