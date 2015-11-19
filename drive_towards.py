@@ -44,8 +44,8 @@ class DriveTowards:
 			self.motor_controller.move_back_wheel(8)
 		else:
 			print("move straght")
-			self.motor_controller.move_right_wheel(speed + 40)
-			self.motor_controller.move_left_wheel((speed + 40) * -1)
+			self.motor_controller.move_right_wheel(speed + 20)
+			self.motor_controller.move_left_wheel((speed + 20) * -1)
 
 	def circle(self):
 		self.motor_controller.move_left_wheel(7)

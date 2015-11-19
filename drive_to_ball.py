@@ -24,6 +24,7 @@ class DriveController(object):
 	def drive_to_ball(self):
 
 		while self.game_status.status():
+			self.mainboard_controller.charge()
 			ball_coordinates = self.get_ball_coordinates.get_coordinates()
 			# goal_coordinates = self.get_goal_coordinates.get_coordinates()
 			# print("i = " + str(self.i))
@@ -52,7 +53,6 @@ class DriveController(object):
 				self.i = 0
 
 			else:
-				self.mainboard_controller.charge()
 				# to avoid cases when just losing the blob for one frame
 				self.i += 1
 				if self.i > 5:
