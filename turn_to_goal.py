@@ -22,7 +22,7 @@ class TurnToGoal:
 		while coordinates == -1 and self.game_status.status():
 			self.mainboard_controller.ping()
 			self.turns_searching += 1
-			self.motor_controller.move_back_wheel(40)
+			self.motor_controller.move_back_wheel(60)
 			coordinates = self.get_gate_coordinates.get_coordinates()
 			print("finding fast: " + str(coordinates))
 

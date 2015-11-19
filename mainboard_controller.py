@@ -15,7 +15,7 @@ class MainBoardController:
 		self.mainboard.write("p\n")
 
 	def start_dribbler(self):
-		self.mainboard.write("dm200\n")
+		self.mainboard.write("dm255\n")
 
 	def stop_dribbler(self):
 		self.mainboard.write("dm0\n")
@@ -26,7 +26,7 @@ class MainBoardController:
 
 	def kick(self):
 		print(str(datetime.now()) + " | kick")
-		self.mainboard.write("k\n")
+		# self.mainboard.write("k\n")
 		# self.charge()
 
 	def has_ball(self):
