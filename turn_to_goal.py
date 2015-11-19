@@ -33,7 +33,6 @@ class TurnToGoal:
 
 		self.motor_controller.stop()
 
-
 		in_this = 0
 		while self.game_status.status():
 			self.mainboard_controller.ping()

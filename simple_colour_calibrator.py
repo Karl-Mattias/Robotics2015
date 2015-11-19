@@ -6,7 +6,7 @@ import cv2
 st = BoltSettings()
 settingsDict = st.read_dict()
 # opg = settingsDict['own_goal_color']
-opg = "blue"
+opg = "yellow"
 
 
 # Main Module Begins Here
@@ -109,6 +109,7 @@ while True:
 		(x,y),radius = cv2.minEnclosingCircle(cnt)
 		center = (int(x), int(y))
 		radius = int(radius)
+		print(radius)
 		cv2.circle(frame, center, radius, (0, 255, 0), 2)
 		cv2.circle(closing, center, radius, (0, 255, 0), 2)
 

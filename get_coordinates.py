@@ -10,6 +10,7 @@ class GetCoordinates:
 	def __init__(self, obj):
 		# Load Global Settings
 		st = BoltSettings()
+		self.obj = obj
 		self.settingsDict = st.read_dict()
 		h_low = int(self.settingsDict['H_low_' + obj])
 		h_top = int(self.settingsDict['H_top_' + obj])
@@ -52,6 +53,10 @@ class GetCoordinates:
 			area = cv2.contourArea(cnt)
 			rect = cv2.minAreaRect(cnt)
 			width = rect[1][0]
+
+			if width < 5 and self.obj == "yellow":
+				continue
+
 			if area > biggest_size:
 				biggest_size = area
 				M = cv2.moments(cnt)
