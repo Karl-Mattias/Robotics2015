@@ -54,8 +54,8 @@ class GetCoordinates:
 			rect = cv2.minAreaRect(cnt)
 			width = rect[1][0]
 
-			if width < 5 and self.obj == "yellow":
-				continue
+			if width < 5 and (self.obj == "yellow" or self.obj == "blue"):
+				return -1
 
 			if area > biggest_size:
 				biggest_size = area

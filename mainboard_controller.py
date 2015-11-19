@@ -26,7 +26,7 @@ class MainBoardController:
 
 	def kick(self):
 		print(str(datetime.now()) + " | kick")
-		# self.mainboard.write("k\n")
+		self.mainboard.write("k\n")
 		# self.charge()
 
 	def has_ball(self):
