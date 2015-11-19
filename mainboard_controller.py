@@ -22,7 +22,7 @@ class MainBoardController:
 
 	def charge(self):
 		print(str(datetime.now()) + " | charge")
-		self.mainboard.write("co1\n")
+		self.mainboard.write("c\n")
 
 	def kick(self):
 		print(str(datetime.now()) + " | kick")
