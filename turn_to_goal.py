@@ -2,19 +2,18 @@ from get_coordinates import GetCoordinates
 from motor_controller import MotorController
 from settings import BoltSettings
 from game_status import GameStatus
-from mainboard_controller import MainBoardController
 from time import sleep
 
 __author__ = 'Karl'
 
 
 class TurnToGoal:
-	def __init__(self):
+	def __init__(self, mainboard_controller):
 		bolt_settings = BoltSettings().read_dict()
 		self.get_gate_coordinates = GetCoordinates(bolt_settings["opponent_goal_color"])
 		self.motor_controller = MotorController()
 		self.game_status = GameStatus()
-		self.mainboard_controller = MainBoardController()
+		self.mainboard_controller = mainboard_controller
 		self.turns_searching = 0
 
 	def turn(self):
@@ -61,11 +60,20 @@ class TurnToGoal:
 				self.motor_controller.move_back_wheel(20 * -1)
 			else:  # facing goal
 				print("facing!")
-				# self.mainboard_controller.charge()
 				self.motor_controller.stop()
-				#self.mainboard_controller.kick()
-
-				#sleep(4)
 				print("kick")
 				self.mainboard_controller.kick()
+				sleep(0.5)
+				self.mainboard_controller.ping()
+
+				if self.mainboard_controller.has_ball():
+					print("still having ball")
+					self.mainboard_controller.charge()
+					sleep(1)
+					self.mainboard_controller.ping()
+					sleep(1)
+					self.mainboard_controller.ping()
+					sleep(1)
+					print("kick again")
+					self.mainboard_controller.kick()
 				break

@@ -13,10 +13,10 @@ f.write("False")
 f.close()
 
 referee_controller = RefereeController()
-drive_controller = DriveController()
+mainboard_controller = MainBoardController()
+drive_controller = DriveController(mainboard_controller)
 game_status = GameStatus()
 drive_towards = DriveTowards()
-mainboard_controller = MainBoardController()
 
 initial = True
 
@@ -38,7 +38,7 @@ try:
 			if initial:
 				drive_towards.drive_forward()
 				initial = False
-			drive_controller.drive_to_ball(mainboard_controller)
+			drive_controller.drive_to_ball()
 
 except KeyboardInterrupt:
 	referee_controller.kill_received = True
