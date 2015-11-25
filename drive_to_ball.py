@@ -1,30 +1,27 @@
 from get_coordinates import GetCoordinates
 from drive_towards import DriveTowards
 from turn_to_goal import TurnToGoal
-from game_status import GameStatus
-from motor_controller import MotorController
 from settings import BoltSettings
-# from mainboard_controller import MainBoardController
 __author__ = 'Karl'
 
 
 class DriveController(object):
 
-	def __init__(self, mainboard_controller):
+	def __init__(self, mainboard_controller, motor_controller, referee_module):
 		bolt_settings = BoltSettings().read_dict()
 		self.get_ball_coordinates = GetCoordinates("ball")
 		self.get_goal_coordinates = GetCoordinates(bolt_settings["opponent_goal_color"])
-		self.driver = DriveTowards()
-		self.to_goal = TurnToGoal(mainboard_controller)
+		self.driver = DriveTowards(mainboard_controller, motor_controller)
+		self.to_goal = TurnToGoal(mainboard_controller, motor_controller, referee_module)
 		self.i = 0
-		self.game_status = GameStatus()
-		self.motor_controller = MotorController()
+		self.referee_module = referee_module
+		self.motor_controller = motor_controller
 		self.mainboard_controller = mainboard_controller
 
 	def drive_to_ball(self):
 
-		while self.game_status.status():
-			self.mainboard_controller.charge()
+		while self.referee_module.game_status():
+			# self.mainboard_controller.charge()
 			ball_coordinates = self.get_ball_coordinates.get_coordinates()
 			# goal_coordinates = self.get_goal_coordinates.get_coordinates()
 			# print("i = " + str(self.i))

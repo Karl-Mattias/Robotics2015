@@ -5,14 +5,15 @@ __author__ = 'Gabriel'
 
 
 class RefereeController(object):
-	def __init__(self):
-		self.serialChannel = serial.Serial("/dev/ttyACM0", 9600)
+	def __init__(self, game_status=False):
+		self.serialChannel = serial.Serial("COM3", 9600)
 		self.boltSettings = BoltSettings().read_dict()
 		self.CharCounter = 0
 		self.initChar = self.boltSettings['initialCharSignal']
 		self.listening = False
 		self.respond = False
 		self.kill_received = False
+		self.game_state = game_status
 
 	def write_ack_string(self):
 
@@ -21,11 +22,14 @@ class RefereeController(object):
 		message = (self.initChar + self.boltSettings["playingField"] + self.boltSettings["robotID"] + self.boltSettings["ackMsg"]).encode()
 		print("message: " + message)
 		self.serialChannel.write(message)
-
+	'''
 	def write_last_ctr_signal(self, msg):
 		f = open('referee.command', 'w')
 		f.write(msg)
-		f.close()
+		f.close()'''
+
+	def game_status(self):
+		return self.game_state
 
 	def listen(self):
 		while not self.kill_received:
@@ -64,6 +68,8 @@ class RefereeController(object):
 							self.write_ack_string()
 
 						if msg == "START":
-							self.write_last_ctr_signal('True')
+							self.game_state = True
+							# self.write_last_ctr_signal('True')
 						else:
-							self.write_last_ctr_signal('False')
+							self.game_state = False
+							# self.write_last_ctr_signal('False')

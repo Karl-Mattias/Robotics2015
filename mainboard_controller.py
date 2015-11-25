@@ -7,8 +7,9 @@ __author__ = 'Karl'
 class MainBoardController:
 
 	def __init__(self):
-		os.chmod("/dev/ttyACM1", 755)  # set permissions to read serial
-		self.mainboard = serial.Serial("/dev/ttyACM1", 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
+		# os.chmod("COM5", 755)  # set permissions to read serial
+		port = 'COM5'
+		self.mainboard = serial.Serial(port, 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
 		self.is_ball = False
 
 	def ping(self):
@@ -27,7 +28,7 @@ class MainBoardController:
 	def kick(self):
 		print(str(datetime.now()) + " | kick")
 		self.mainboard.write("k\n")
-		# self.charge()
+		self.charge()
 
 	def has_ball(self):
 		return self.is_ball

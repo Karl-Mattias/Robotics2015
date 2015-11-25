@@ -44,7 +44,7 @@ class GetCoordinates:
 		opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
 		# Detect blobs.
-		contours, _ = cv2.findContours(closing, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+		_, contours, _ = cv2.findContours(closing, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
 		# Getting the biggest blob's coordinates (that is probably the closest object)
 		biggest_size = 0

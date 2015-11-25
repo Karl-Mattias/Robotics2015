@@ -7,9 +7,9 @@ __author__ = 'Karl'
 
 class DriveTowards:
 
-	def __init__(self):
-		self.motor_controller = MotorController()
-		self.mainboard_controller = MainBoardController()
+	def __init__(self, mainboard_controller, motor_controller):
+		self.motor_controller = motor_controller
+		self.mainboard_controller = mainboard_controller
 
 	def drive(self, coordinates):
 
