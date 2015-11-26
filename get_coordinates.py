@@ -43,8 +43,9 @@ class GetCoordinates:
 		mask = cv2.inRange(hsv, lower_colour, upper_colour)
 
 		# making edges of the two different colours to be less fuzzy
-		closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-		opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
+		closing = cv2.dilate(mask, kernel, iterations=2)
+		#closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+		# opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
 		# Detect blobs.
 		_, contours, _ = cv2.findContours(closing, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)

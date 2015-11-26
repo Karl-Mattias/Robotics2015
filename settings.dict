@@ -6,12 +6,12 @@ S_low_yellow,104
 S_top_yellow,181
 V_low_yellow,141
 V_top_yellow,240
-H_low_blue,94
-H_top_blue,154
-S_low_blue,161
+H_low_blue,97
+H_top_blue,204
+S_low_blue,255
 S_top_blue,255
-V_low_blue,31
-V_top_blue,255
+V_low_blue,23
+V_top_blue,211
 H_low_ball,3
 H_top_ball,20
 S_low_ball,235
