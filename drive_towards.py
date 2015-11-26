@@ -33,17 +33,17 @@ class DriveTowards:
 		print("turning speed: " + str(turning_speed))'''
 
 		if x > 340:
-			print("move right")
+			# print("move right")
 			self.motor_controller.move_left_wheel((speed + 8) * -1)
 			self.motor_controller.move_right_wheel(speed - 8)
 			self.motor_controller.move_back_wheel(8)
 		elif x < 310:
-			print("move left")
+			# print("move left")
 			self.motor_controller.move_right_wheel(speed + 8)
 			self.motor_controller.move_left_wheel((speed - 8) * -1)
 			self.motor_controller.move_back_wheel(8)
 		else:
-			print("move straght")
+			# print("move straght")
 			self.motor_controller.move_right_wheel(speed + 20)
 			self.motor_controller.move_left_wheel((speed + 20) * -1)
 

@@ -7,28 +7,31 @@ __author__ = 'Karl'
 
 class GetCoordinates:
 
-	def __init__(self, obj):
+	def __init__(self):
+		pass
+
+	@staticmethod
+	def get_coordinates(obj):
+
 		# Load Global Settings
 		st = BoltSettings()
-		self.obj = obj
-		self.settingsDict = st.read_dict()
-		h_low = int(self.settingsDict['H_low_' + obj])
-		h_top = int(self.settingsDict['H_top_' + obj])
-		s_low = int(self.settingsDict['S_low_' + obj])
-		s_top = int(self.settingsDict['S_top_' + obj])
-		v_low = int(self.settingsDict['V_low_' + obj])
-		v_top = int(self.settingsDict['V_top_' + obj])
+		obj = obj
+		settings_dict = st.read_dict()
+		h_low = int(settings_dict['H_low_' + obj])
+		h_top = int(settings_dict['H_top_' + obj])
+		s_low = int(settings_dict['S_low_' + obj])
+		s_top = int(settings_dict['S_top_' + obj])
+		v_low = int(settings_dict['V_low_' + obj])
+		v_top = int(settings_dict['V_top_' + obj])
 
-		self.lower_colour = np.array([h_low, s_low, v_low])
-		self.upper_colour = np.array([h_top, s_top, v_top])
+		lower_colour = np.array([h_low, s_low, v_low])
+		upper_colour = np.array([h_top, s_top, v_top])
 
-	def get_coordinates(self):
-
-		self.cap = cv2.VideoCapture(0)
+		cap = cv2.VideoCapture(0)
 
 		kernel = np.ones((10, 10), np.uint8)
 
-		ret, frame = self.cap.read()
+		ret, frame = cap.read()
 
 		if not ret:
 			print("No image")
@@ -37,7 +40,7 @@ class GetCoordinates:
 
 		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-		mask = cv2.inRange(hsv, self.lower_colour, self.upper_colour)
+		mask = cv2.inRange(hsv, lower_colour, upper_colour)
 
 		# making edges of the two different colours to be less fuzzy
 		closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
@@ -54,7 +57,7 @@ class GetCoordinates:
 			rect = cv2.minAreaRect(cnt)
 			width = rect[1][0]
 
-			if width < 5 and (self.obj == "yellow" or self.obj == "blue"):
+			if width < 5 and (obj == "yellow" or obj == "blue"):
 				return -1
 
 			if area > biggest_size:
@@ -69,7 +72,7 @@ class GetCoordinates:
 					continue
 				coordinates = (cx, cy, width)
 
-		self.cap.release()
+		cap.release()
 
 		return coordinates
 

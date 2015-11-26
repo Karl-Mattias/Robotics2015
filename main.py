@@ -9,10 +9,10 @@ import traceback
 __author__ = 'Gabriel'
 
 f = open('referee.command', 'w')
-f.write("False")
+f.write("True")
 f.close()
 
-referee_controller = RefereeController(game_status=False)
+referee_controller = RefereeController(game_status=True)
 mainboard_controller = MainBoardController()
 motor_controller = MotorController()
 drive_controller = DriveController(mainboard_controller, motor_controller, referee_controller)

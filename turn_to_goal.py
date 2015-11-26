@@ -1,4 +1,3 @@
-from get_coordinates import GetCoordinates
 from settings import BoltSettings
 from time import sleep
 
@@ -6,9 +5,8 @@ __author__ = 'Karl'
 
 
 class TurnToGoal:
-	def __init__(self, mainboard_controller, motor_controller, referee_module):
-		bolt_settings = BoltSettings().read_dict()
-		self.get_gate_coordinates = GetCoordinates(bolt_settings["opponent_goal_color"])
+	def __init__(self, mainboard_controller, motor_controller, referee_module, get_coordinates):
+		self.get_gate_coordinates = get_coordinates
 		self.motor_controller = motor_controller
 		self.referee_module = referee_module
 		self.mainboard_controller = mainboard_controller
@@ -16,12 +14,14 @@ class TurnToGoal:
 
 	def turn(self):
 
-		coordinates = self.get_gate_coordinates.get_coordinates()
+		bolt_settings = BoltSettings().read_dict()
+
+		coordinates = self.get_gate_coordinates.get_coordinates(bolt_settings["opponent_goal_color"])
 		while coordinates == -1 and self.referee_module.game_status():
 			self.mainboard_controller.ping()
 			self.turns_searching += 1
-			self.motor_controller.move_back_wheel(60)
-			coordinates = self.get_gate_coordinates.get_coordinates()
+			self.motor_controller.move_back_wheel(50)
+			coordinates = self.get_gate_coordinates.get_coordinates(bolt_settings["opponent_goal_color"])
 			print("finding fast: " + str(coordinates))
 
 			# it cannot find gate (might be in the corner)
@@ -35,7 +35,7 @@ class TurnToGoal:
 		while self.referee_module.game_status():
 			self.mainboard_controller.ping()
 			in_this += 1
-			coordinates = self.get_gate_coordinates.get_coordinates()
+			coordinates = self.get_gate_coordinates.get_coordinates(bolt_settings["opponent_goal_color"])
 			print("finding slow: " + str(coordinates))
 			if coordinates == -1:
 				if in_this < 5:

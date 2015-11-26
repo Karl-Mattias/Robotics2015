@@ -1,18 +1,17 @@
 from get_coordinates import GetCoordinates
 from drive_towards import DriveTowards
 from turn_to_goal import TurnToGoal
-from settings import BoltSettings
+# from settings import BoltSettings
 __author__ = 'Karl'
 
 
 class DriveController(object):
 
 	def __init__(self, mainboard_controller, motor_controller, referee_module):
-		bolt_settings = BoltSettings().read_dict()
-		self.get_ball_coordinates = GetCoordinates("ball")
-		self.get_goal_coordinates = GetCoordinates(bolt_settings["opponent_goal_color"])
+		# bolt_settings = BoltSettings().read_dict()
+		self.get_coordinates = GetCoordinates()
 		self.driver = DriveTowards(mainboard_controller, motor_controller)
-		self.to_goal = TurnToGoal(mainboard_controller, motor_controller, referee_module)
+		self.to_goal = TurnToGoal(mainboard_controller, motor_controller, referee_module, self.get_coordinates)
 		self.i = 0
 		self.referee_module = referee_module
 		self.motor_controller = motor_controller
@@ -22,7 +21,7 @@ class DriveController(object):
 
 		while self.referee_module.game_status():
 			# self.mainboard_controller.charge()
-			ball_coordinates = self.get_ball_coordinates.get_coordinates()
+			ball_coordinates = self.get_coordinates.get_coordinates("ball")
 			# goal_coordinates = self.get_goal_coordinates.get_coordinates()
 			# print("i = " + str(self.i))
 			self.mainboard_controller.ping()
@@ -56,4 +55,4 @@ class DriveController(object):
 					self.driver.circle()
 
 	def kill(self):
-		self.get_ball_coordinates.kill()
+		self.get_coordinates.kill()
