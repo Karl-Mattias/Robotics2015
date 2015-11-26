@@ -17,7 +17,7 @@ class TurnToGoal:
 		bolt_settings = BoltSettings().read_dict()
 
 		coordinates = self.get_gate_coordinates.get_coordinates(bolt_settings["opponent_goal_color"])
-		while coordinates == -1 and self.referee_module.game_status():
+		while coordinates == -1 and self.referee_module.game_status() and self.mainboard_controller.has_ball():
 			self.mainboard_controller.ping()
 			self.turns_searching += 1
 			self.motor_controller.move_back_wheel(50)
@@ -32,7 +32,7 @@ class TurnToGoal:
 		self.motor_controller.stop()
 
 		in_this = 0
-		while self.referee_module.game_status():
+		while self.referee_module.game_status() and self.mainboard_controller.has_ball():
 			self.mainboard_controller.ping()
 			in_this += 1
 			coordinates = self.get_gate_coordinates.get_coordinates(bolt_settings["opponent_goal_color"])
