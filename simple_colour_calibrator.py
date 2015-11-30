@@ -7,7 +7,7 @@ from datetime import datetime
 st = BoltSettings()
 settingsDict = st.read_dict()
 # opg = settingsDict['own_goal_color']
-opg = "blue"
+opg = "ball"
 
 
 # Main Module Begins Here
@@ -15,7 +15,7 @@ def nothing(x):
 	pass
 
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 cv2.namedWindow('image')
 
@@ -123,7 +123,7 @@ while True:
 
 	before = datetime.now() - start
 	#print("before: " + str(before))
-	# cv2.imshow('Video', frame)
+	cv2.imshow('Video', frame)
 	cv2.imshow('mask', mask)
 	cv2.drawContours(to_show, contours, -1, (255,255,0), 10)
 	cv2.imshow('dilation', to_show)
