@@ -16,7 +16,16 @@ class TurnToGoal:
 
 		bolt_settings = BoltSettings().read_dict()
 
-		opponent_coordinates = self.get_gate_coordinates.get_coordinates()[bolt_settings["opponent_goal_color"]]
+		coordinates = self.get_gate_coordinates.get_coordinates()
+		opponent_coordinates = coordinates[bolt_settings["opponent_goal_color"]]
+		self_coordinates = coordinates[bolt_settings["own_goal_color"]]
+
+		self_x = self_coordinates[0]
+		opponent_x = opponent_coordinates[0]
+
+		if opponent_x + 10 > self_x > 10 - opponent_x:  # The colours are of a robot not of a gate
+			opponent_coordinates = -1
+
 		while opponent_coordinates == -1 and self.referee_module.game_status() and self.mainboard_controller.has_ball():
 			self.mainboard_controller.ping()
 			self.turns_searching += 1
@@ -47,7 +56,7 @@ class TurnToGoal:
 			self_x = self_coordinates[0]
 			opponent_x = opponent_coordinates[0]
 
-			if opponent_x + 10 > self_x > 10 - opponent_x:
+			if opponent_x + 10 > self_x > 10 - opponent_x:  # The colours are of a robot not of a gate
 				if in_this < 5:
 					continue
 				self.turn()
