@@ -4,7 +4,7 @@ import serial
 class MotorController:
 
 	def __init__(self):
-		self.motor = serial.Serial("COM4", 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, writeTimeout=0)
+		self.motor = serial.Serial("COM4", 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE)  # , writeTimeout=0)
 
 	# The ids for right, left and back wheel controllers are 1, 2 and 3 respectively
 	def move_right_wheel(self, speed=40):

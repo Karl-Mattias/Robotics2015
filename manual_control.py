@@ -36,24 +36,24 @@ while True:
 				state['left'] = 0
 	if state['up'] == 1:
 		if state['right'] == 1:
-			MotorController().move_left_wheel(-30)
-			MotorController().move_right_wheel(30)
-			MotorController().move_back_wheel(10)
-		elif state['left'] == 1:
-			MotorController().move_left_wheel(-30)
+			MotorController().move_left_wheel(-40)
 			MotorController().move_right_wheel(30)
 			MotorController().move_back_wheel(-10)
+		elif state['left'] == 1:
+			MotorController().move_left_wheel(-30)
+			MotorController().move_right_wheel(40)
+			MotorController().move_back_wheel(10)
 		else:
 			MotorController().move_left_wheel(-40)
 			MotorController().move_right_wheel(40)
 	elif state['left'] == 1:
-		MotorController().move_back_wheel(-20)
-		MotorController().move_right_wheel(-20)
-		MotorController().move_left_wheel(-20)
-	elif state['right'] == 1:
 		MotorController().move_back_wheel(20)
 		MotorController().move_right_wheel(20)
 		MotorController().move_left_wheel(20)
+	elif state['right'] == 1:
+		MotorController().move_back_wheel(-20)
+		MotorController().move_right_wheel(-20)
+		MotorController().move_left_wheel(-20)
 	elif state['down'] == 1:
 		MotorController().move_right_wheel(-20)
 		MotorController().move_left_wheel(20)

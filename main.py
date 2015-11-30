@@ -21,9 +21,9 @@ drive_towards = DriveTowards(mainboard_controller, motor_controller)
 initial = True
 
 try:
-	td1 = threading.Thread(target=referee_controller.listen)
+	#td1 = threading.Thread(target=referee_controller.listen)
 	td2 = threading.Thread(target=mainboard_controller.read_from_port)
-	td1.start()
+	#td1.start()
 	td2.start()
 
 	print("listening ...")
@@ -36,7 +36,7 @@ try:
 			mainboard_controller.charge()
 			print("received go signal")
 			if initial:
-				drive_towards.drive_forward()
+				# drive_towards.drive_forward()
 				initial = False
 			drive_controller.drive_to_ball()
 
