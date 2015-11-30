@@ -1,4 +1,3 @@
-import os
 import serial
 from datetime import datetime
 __author__ = 'Karl'
@@ -7,7 +6,6 @@ __author__ = 'Karl'
 class MainBoardController:
 
 	def __init__(self):
-		# os.chmod("COM5", 755)  # set permissions to read serial
 		port = 'COM5'
 		self.mainboard = serial.Serial(port, 19200, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, 3)
 		self.is_ball = False

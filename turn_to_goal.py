@@ -16,13 +16,13 @@ class TurnToGoal:
 
 		bolt_settings = BoltSettings().read_dict()
 
-		coordinates = self.get_gate_coordinates.get_coordinates()[bolt_settings["opponent_goal_color"]]
-		while coordinates == -1 and self.referee_module.game_status() and self.mainboard_controller.has_ball():
+		opponent_coordinates = self.get_gate_coordinates.get_coordinates()[bolt_settings["opponent_goal_color"]]
+		while opponent_coordinates == -1 and self.referee_module.game_status() and self.mainboard_controller.has_ball():
 			self.mainboard_controller.ping()
 			self.turns_searching += 1
 			self.motor_controller.move_back_wheel(50)
-			coordinates = self.get_gate_coordinates.get_coordinates()[bolt_settings["opponent_goal_color"]]
-			print("finding fast: " + str(coordinates))
+			opponent_coordinates = self.get_gate_coordinates.get_coordinates()[bolt_settings["opponent_goal_color"]]
+			print("finding fast: " + str(opponent_coordinates))
 
 			# it cannot find gate (might be in the corner)
 			# for now just find new ball
@@ -35,25 +35,34 @@ class TurnToGoal:
 		while self.referee_module.game_status() and self.mainboard_controller.has_ball():
 			self.mainboard_controller.ping()
 			in_this += 1
-			coordinates = self.get_gate_coordinates.get_coordinates()[bolt_settings["opponent_goal_color"]]
-			print("finding slow: " + str(coordinates))
-			if coordinates == -1:
+			coordinates = self.get_gate_coordinates.get_coordinates()
+			opponent_coordinates = coordinates[bolt_settings["opponent_goal_color"]]
+			print("finding slow: " + str(opponent_coordinates))
+			if opponent_coordinates == -1:
+				if in_this < 5:
+					continue
+				self.turn()
+				break
+			self_coordinates = coordinates[bolt_settings["own_goal_color"]]
+			self_x = self_coordinates[0]
+			opponent_x = opponent_coordinates[0]
+
+			if opponent_x + 10 > self_x > 10 - opponent_x:
 				if in_this < 5:
 					continue
 				self.turn()
 				break
 
-			x = coordinates[0]
-			width = coordinates[2]
+			width = opponent_coordinates[2]
 			# print("width: " + str(width))
 			# closer to looking straight to the gate the smaller the speed
 			# speed = (abs(x - 325) / 2)
 			# if speed > 20:
 			# 	speed = 20
 
-			if x < 350 - width/4:
+			if opponent_x < 350 - width/4:
 				self.motor_controller.move_back_wheel(20)
-			elif x > 350 + width/4:
+			elif opponent_x > 350 + width/4:
 				self.motor_controller.move_back_wheel(20 * -1)
 			else:  # facing goal
 				print("facing!")
