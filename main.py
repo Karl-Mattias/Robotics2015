@@ -42,9 +42,9 @@ try:
 
 except KeyboardInterrupt:
 	referee_controller.kill_received = True
-	drive_controller.kill()
+	# drive_controller.kill()
 
 except Exception as err:
 	traceback.print_exc()
-	drive_controller.kill()
+	# drive_controller.kill()
 

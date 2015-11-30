@@ -18,6 +18,12 @@ S_low_ball,235
 S_top_ball,255
 V_low_ball,127
 V_top_ball,255
+H_low_black,0
+H_top_black,0
+S_low_black,0
+S_top_black,0
+V_low_black,0
+V_top_black,0
 -,-
 playingField,A
 robotID,A

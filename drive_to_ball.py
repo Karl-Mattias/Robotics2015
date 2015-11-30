@@ -21,7 +21,8 @@ class DriveController(object):
 
 		while self.referee_module.game_status():
 			# self.mainboard_controller.charge()
-			ball_coordinates = self.get_coordinates.get_coordinates("ball")
+			coordinates = self.get_coordinates.get_coordinates()
+			ball_coordinates = coordinates["ball"]
 			# goal_coordinates = self.get_goal_coordinates.get_coordinates()
 			# print("i = " + str(self.i))
 			self.mainboard_controller.ping()
@@ -54,5 +55,5 @@ class DriveController(object):
 				if self.i > 5:
 					self.driver.circle()
 
-	def kill(self):
-		self.get_coordinates.kill()
+	# def kill(self):
+		# self.get_coordinates.kill()
