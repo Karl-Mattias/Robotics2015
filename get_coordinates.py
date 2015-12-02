@@ -27,7 +27,7 @@ class GetCoordinates:
 			return -1
 
 		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-		colours = ["ball", "blue", "yellow", "black"]
+		colours = ["black", "blue", "yellow", "ball"]
 		coordinates_dict = {"ball": -1, "blue": -1, "yellow": -1, "black": -1}
 
 		for i in range(4):
@@ -45,11 +45,9 @@ class GetCoordinates:
 
 			kernel = np.ones((10, 10), np.uint8)
 
-
-
 			# making edges of the two different colours to be less fuzzy
 			closing = cv2.dilate(mask, kernel, iterations=2)
-			#closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+			# closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 			# opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
 
 			# Detect blobs.
@@ -67,15 +65,20 @@ class GetCoordinates:
 					continue
 
 				if area > biggest_size:
-					biggest_size = area
 					M = cv2.moments(cnt)
 					try:
 						cx = int(M['m10']/M['m00'])
 						cy = int(M['m01']/M['m00'])
 					except ZeroDivisionError:
-						coordinates = -1
 						print("zero division")
 						continue
+					biggest_size = area
+
+					black = coordinates_dict["black"]
+
+					if black != -1 and black[1] < cy:  # ball is out of the field
+						continue
+
 					coordinates = (cx, cy, width)
 			coordinates_dict[colour] = coordinates
 
