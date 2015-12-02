@@ -73,11 +73,15 @@ class GetCoordinates:
 						print("zero division")
 						continue
 					biggest_size = area
+					if colour == "ball":
+						black = coordinates_dict["black"]
 
-					black = coordinates_dict["black"]
-
-					if black != -1 and black[1] < cy:  # ball is out of the field
-						continue
+						if black != -1:
+							black_x = black[0]
+							black_y = black[1]
+							black_width = black[2]
+							if black_y < cy and black_x + black_width / 2 > cx > black_width / 2 - black_x:  # ball is out of the field
+								continue
 
 					coordinates = (cx, cy, width)
 			coordinates_dict[colour] = coordinates
