@@ -10,8 +10,7 @@ settingsDict = st.read_dict()
 opg = "ball"
 
 
-# Main Module Begins Here
-def nothing(x):
+def nothing():
 	pass
 
 

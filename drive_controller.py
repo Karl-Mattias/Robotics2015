@@ -1,11 +1,9 @@
-from motor_controller import MotorController
-from mainboard_controller import MainBoardController
 import time
 
 __author__ = 'Karl'
 
 
-class DriveTowards:
+class DriveController:
 
 	def __init__(self, mainboard_controller, motor_controller):
 		self.motor_controller = motor_controller
@@ -52,6 +50,9 @@ class DriveTowards:
 		self.motor_controller.move_right_wheel(14)
 		self.motor_controller.move_back_wheel(14)
 
+	def around_ball(self, multiplier=1):
+		self.motor_controller.move_back_wheel(10 * multiplier)
+
 	def drive_forward(self):
 		self.motor_controller.move_left_wheel(-70)
 		self.motor_controller.move_right_wheel(70)
@@ -59,3 +60,6 @@ class DriveTowards:
 		self.mainboard_controller.ping()
 		time.sleep(1)
 		self.mainboard_controller.ping()
+
+	def stop(self):
+		self.motor_controller.stop()

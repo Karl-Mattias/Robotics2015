@@ -45,34 +45,33 @@ class GetCoordinates:
 
 			kernel = np.ones((10, 10), np.uint8)
 
-			# making edges of the two different colours to be less fuzzy
-			closing = cv2.dilate(mask, kernel, iterations=2)
-			# closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-			# opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
+			# combining smaller blobs
+			dilated = cv2.dilate(mask, kernel, iterations=2)
 
 			# Detect blobs.
-			_, contours, _ = cv2.findContours(closing, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+			_, contours, _ = cv2.findContours(dilated, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
 			# Getting the biggest blob's coordinates (that is probably the closest object)
-			biggest_size = 0
+			biggest_width = 0
 			coordinates = -1
 			for cnt in contours:
-				area = cv2.contourArea(cnt)
+				# width = cv2.contourArea(cnt)
 				rect = cv2.minAreaRect(cnt)
 				width = rect[1][0]
+				height = rect[1][1]
 
 				if width < 5 and (colour == "yellow" or colour == "blue"):
 					continue
 
-				if area > biggest_size:
-					M = cv2.moments(cnt)
+				if width > biggest_width:
+					moment = cv2.moments(cnt)
 					try:
-						cx = int(M['m10']/M['m00'])
-						cy = int(M['m01']/M['m00'])
+						cx = int(moment['m10']/moment['m00'])
+						cy = int(moment['m01']/moment['m00'])
 					except ZeroDivisionError:
 						print("zero division")
 						continue
-					biggest_size = area
+					biggest_width = width
 					if colour == "ball":
 						black = coordinates_dict["black"]
 
@@ -83,12 +82,9 @@ class GetCoordinates:
 							if black_y < cy and black_x + black_width / 2 > cx > black_width / 2 - black_x:  # ball is out of the field
 								continue
 
-					coordinates = (cx, cy, width)
+					coordinates = (cx, cy, width, height)
 			coordinates_dict[colour] = coordinates
 
 		cap.release()
 
 		return coordinates_dict
-
-	# def kill(self):
-		# self.cap.release()

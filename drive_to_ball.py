@@ -1,30 +1,24 @@
 from get_coordinates import GetCoordinates
-from drive_towards import DriveTowards
 from turn_to_goal import TurnToGoal
-# from settings import BoltSettings
+from drive_to_goal import drive_to_goal
 __author__ = 'Karl'
 
 
-class DriveController(object):
+class DriveToBall(object):
 
-	def __init__(self, mainboard_controller, motor_controller, referee_module):
-		# bolt_settings = BoltSettings().read_dict()
+	def __init__(self, mainboard_controller, drive_controller, referee_module):
 		self.get_coordinates = GetCoordinates()
-		self.driver = DriveTowards(mainboard_controller, motor_controller)
-		self.to_goal = TurnToGoal(mainboard_controller, motor_controller, referee_module, self.get_coordinates)
+		self.drive_controller = drive_controller
+		self.to_goal = TurnToGoal(mainboard_controller, drive_controller, referee_module, self.get_coordinates)
 		self.i = 0
 		self.referee_module = referee_module
-		self.motor_controller = motor_controller
 		self.mainboard_controller = mainboard_controller
 
 	def drive_to_ball(self):
 
 		while self.referee_module.game_status():
-			# self.mainboard_controller.charge()
 			coordinates = self.get_coordinates.get_coordinates()
 			ball_coordinates = coordinates["ball"]
-			# goal_coordinates = self.get_goal_coordinates.get_coordinates()
-			# print("i = " + str(self.i))
 			self.mainboard_controller.ping()
 			self.mainboard_controller.start_dribbler()  # just in case the dribbler did not start
 
@@ -32,7 +26,7 @@ class DriveController(object):
 
 				if self.mainboard_controller.has_ball():
 					print("has ball")
-					self.motor_controller.stop()
+					self.drive_controller.stop()
 					self.to_goal.turns_searching = 0
 					self.to_goal.turn()
 					continue
@@ -43,17 +37,22 @@ class DriveController(object):
 					print("goal too close!")
 					self.driver.circle()'''
 
-				if self.i > 5:
-					self.motor_controller.stop()
+				black_coordinates = coordinates["black"]
 
-				self.driver.drive(ball_coordinates)
+				if black_coordinates != -1 and black_coordinates[3] > 400 and black_coordinates[2] > 400:
+					print("darkness ahead")
+
+				if self.i > 5:
+					self.drive_controller.stop()
+
+				self.drive_controller.drive(ball_coordinates)
 				self.i = 0
 
 			else:
 				# to avoid cases when just losing the blob for one frame
 				self.i += 1
-				if self.i > 5:
-					self.driver.circle()
+				if self.i > 3:
+					self.drive_controller.circle()
 
-	# def kill(self):
-		# self.get_coordinates.kill()
+				if self.i > 15:
+					drive_to_goal(self.get_coordinates, self.drive_controller)

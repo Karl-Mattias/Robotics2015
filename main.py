@@ -1,18 +1,17 @@
 from referee import RefereeController
-from drive_to_ball import DriveController
-from drive_towards import DriveTowards
+from drive_to_ball import DriveToBall
+from drive_controller import DriveController
 from mainboard_controller import MainBoardController
 from motor_controller import MotorController
 import threading
-import traceback
 
 __author__ = 'Gabriel'
 
 referee_controller = RefereeController(game_status=True)
 mainboard_controller = MainBoardController()
 motor_controller = MotorController()
-drive_controller = DriveController(mainboard_controller, motor_controller, referee_controller)
-drive_towards = DriveTowards(mainboard_controller, motor_controller)
+drive_controller = DriveController(mainboard_controller, motor_controller)
+drive_to_ball = DriveToBall(mainboard_controller, drive_controller, referee_controller)
 
 initial = True
 
@@ -32,15 +31,10 @@ try:
 			mainboard_controller.charge()
 			print("received go signal")
 			if initial:
-				drive_towards.drive_forward()
+				drive_controller.drive_forward()
 				initial = False
-			drive_controller.drive_to_ball()
+			drive_to_ball.drive_to_ball()
 
 except KeyboardInterrupt:
 	referee_controller.kill_received = True
-	# drive_controller.kill()
-
-except Exception as err:
-	traceback.print_exc()
-	# drive_controller.kill()
 
