@@ -32,11 +32,10 @@ class TurnToGoal:
 			self.turns_searching += 1
 			self.drive_controller.around_ball(5)
 			opponent_coordinates = self.get_gate_coordinates.get_coordinates()[bolt_settings["opponent_goal_color"]]
-			print("finding fast: " + str(opponent_coordinates))
 
 			# it cannot find gate (might be in the corner)
 			if self.turns_searching > 15:
-				drive_to_goal(self.get_gate_coordinates, self.drive_controller)
+				drive_to_goal(self.get_gate_coordinates, self.drive_controller, self.mainboard_controller)
 
 		self.drive_controller.stop()
 
@@ -46,12 +45,17 @@ class TurnToGoal:
 			in_this += 1
 			coordinates = self.get_gate_coordinates.get_coordinates()
 			opponent_coordinates = coordinates[bolt_settings["opponent_goal_color"]]
-			print("finding slow: " + str(opponent_coordinates))
+
 			if opponent_coordinates == -1:
 				if in_this < 5:
 					continue
 				self.turn()
 				break
+
+			if in_this > 10:  # searching for the gate too long already
+				print("Searched for too long")
+				self.kick()
+
 			self_coordinates = coordinates[bolt_settings["own_goal_color"]]
 			self_x = self_coordinates[0]
 			opponent_x = opponent_coordinates[0]
@@ -71,19 +75,22 @@ class TurnToGoal:
 			else:  # facing goal
 				print("facing!")
 				self.drive_controller.stop()
-				print("kick")
-				self.mainboard_controller.kick()
-				sleep(0.5)
-				self.mainboard_controller.ping()
-
-				if self.mainboard_controller.has_ball():
-					print("still having ball")
-					self.mainboard_controller.charge()
-					sleep(1)
-					self.mainboard_controller.ping()
-					sleep(1)
-					self.mainboard_controller.ping()
-					sleep(1)
-					print("kick again")
-					self.mainboard_controller.kick()
+				self.kick()
 				break
+
+	def kick(self):
+		print("kick")
+		self.mainboard_controller.kick()
+		sleep(0.5)
+		self.mainboard_controller.ping()
+
+		if self.mainboard_controller.has_ball():
+			print("still having ball")
+			self.mainboard_controller.charge()
+			sleep(1)
+			self.mainboard_controller.ping()
+			sleep(1)
+			self.mainboard_controller.ping()
+			sleep(1)
+			print("kick again")
+			self.mainboard_controller.kick()

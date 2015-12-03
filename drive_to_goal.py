@@ -1,13 +1,15 @@
 __author__ = 'Karl'
 
 
-def drive_to_goal(get_coordinates, drive_controller):
+def drive_to_goal(get_coordinates, drive_controller, mainboard_controller):
 
 	print("objective lost")
 	i = 0
 	last_state = "circle"
 
 	while i < 10:
+		mainboard_controller.ping()
+
 		blue_coordinates = get_coordinates.get_coordinates()["blue"]
 		yellow_coordinates = get_coordinates.get_coordinates()["yellow"]
 

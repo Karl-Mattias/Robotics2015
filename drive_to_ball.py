@@ -55,4 +55,4 @@ class DriveToBall(object):
 					self.drive_controller.circle()
 
 				if self.i > 15:
-					drive_to_goal(self.get_coordinates, self.drive_controller)
+					drive_to_goal(self.get_coordinates, self.drive_controller, self.mainboard_controller)
