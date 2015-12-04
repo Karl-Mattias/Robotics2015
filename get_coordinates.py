@@ -74,12 +74,14 @@ class GetCoordinates:
 					biggest_width = width
 					if colour == "ball":
 						black = coordinates_dict["black"]
-
+						# print("black: " + str(black))
+						# print("ball: " + str(cx) + ", " + str(cy))
 						if black != -1:
 							black_x = black[0]
 							black_y = black[1]
 							black_width = black[2]
-							if black_y < cy and black_x + black_width / 2 > cx > black_width / 2 - black_x:  # ball is out of the field
+							if black_y > cy and black_x + black_width / 2 > cx > black_width / 2 - black_x:  # ball is out of the field
+								print("ball out of field")
 								continue
 
 					coordinates = (cx, cy, width, height)

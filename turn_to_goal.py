@@ -21,16 +21,17 @@ class TurnToGoal:
 		opponent_coordinates = coordinates[bolt_settings["opponent_goal_color"]]
 		self_coordinates = coordinates[bolt_settings["own_goal_color"]]
 
-		self_x = self_coordinates[0]
-		opponent_x = opponent_coordinates[0]
+		if self_coordinates != -1 and opponent_coordinates != -1:
+			self_x = self_coordinates[0]
+			opponent_x = opponent_coordinates[0]
 
-		if opponent_x + 10 > self_x > 10 - opponent_x:  # The colours are of a robot not of a gate
-			opponent_coordinates = -1
+			if opponent_x + 10 > self_x > 10 - opponent_x:  # The colours are of a robot not of a gate
+				opponent_coordinates = -1
 
 		while opponent_coordinates == -1 and self.referee_module.game_status() and self.mainboard_controller.has_ball():
 			self.mainboard_controller.ping()
 			self.turns_searching += 1
-			self.drive_controller.around_ball(5)
+			self.drive_controller.around_ball(-5)
 			opponent_coordinates = self.get_gate_coordinates.get_coordinates()[bolt_settings["opponent_goal_color"]]
 
 			# it cannot find gate (might be in the corner)
@@ -57,14 +58,17 @@ class TurnToGoal:
 				self.kick()
 
 			self_coordinates = coordinates[bolt_settings["own_goal_color"]]
-			self_x = self_coordinates[0]
 			opponent_x = opponent_coordinates[0]
 
-			if opponent_x + 10 > self_x > 10 - opponent_x:  # The colours are of a robot not of a gate
-				if in_this < 5:
-					continue
-				self.turn()
-				break
+			if self_coordinates != -1:
+
+				self_x = self_coordinates[0]
+
+				if opponent_x + 10 > self_x > 10 - opponent_x:  # The colours are of a robot not of a gate
+					if in_this < 5:
+						continue
+					self.turn()
+					break
 
 			width = opponent_coordinates[2]
 

@@ -16,19 +16,14 @@ class DriveController:
 
 		x = coordinates[0]
 		y = coordinates[1]
-		# width = coordinates[2]
 
-		speed = 30
-		'''if y < 150:
+		# the closer the ball the smaller the speed
+		if y < 150:
 			speed = 70
+		elif y > 500:
+			speed = 20
 		else:
-			speed = 40'''
-
-		'''# the added multiplier to differentiate the wheel speeds.
-		# the smaller the y value the least is needed to turn, because the farthest is the ball.
-		# the closer the x value is to the central value (325) the least is needed to turn.
-		turning_speed = ((abs(x - 325) / 325.0) * ((650 - y) / 650.0)) * speed
-		print("turning speed: " + str(turning_speed))'''
+			speed = 40
 
 		if x > 340:
 			# print("move right")
@@ -45,10 +40,10 @@ class DriveController:
 			self.motor_controller.move_right_wheel(speed + 20)
 			self.motor_controller.move_left_wheel((speed + 20) * -1)
 
-	def circle(self):
-		self.motor_controller.move_left_wheel(14)
-		self.motor_controller.move_right_wheel(14)
-		self.motor_controller.move_back_wheel(14)
+	def circle(self, multiplier=1):
+		self.motor_controller.move_left_wheel(14 * multiplier)
+		self.motor_controller.move_right_wheel(14 * multiplier)
+		self.motor_controller.move_back_wheel(14 * multiplier)
 
 	def around_ball(self, multiplier=1):
 		self.motor_controller.move_back_wheel(10 * multiplier)

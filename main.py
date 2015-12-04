@@ -7,7 +7,7 @@ import threading
 
 __author__ = 'Gabriel'
 
-referee_controller = RefereeController(game_status=True)
+referee_controller = RefereeController(game_status=False)
 mainboard_controller = MainBoardController()
 motor_controller = MotorController()
 drive_controller = DriveController(mainboard_controller, motor_controller)

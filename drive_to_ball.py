@@ -1,6 +1,7 @@
 from get_coordinates import GetCoordinates
 from turn_to_goal import TurnToGoal
 from drive_to_goal import drive_to_goal
+from time import sleep
 __author__ = 'Karl'
 
 
@@ -15,6 +16,8 @@ class DriveToBall(object):
 		self.mainboard_controller = mainboard_controller
 
 	def drive_to_ball(self):
+
+		self.i = 0
 
 		while self.referee_module.game_status():
 			coordinates = self.get_coordinates.get_coordinates()
@@ -31,11 +34,16 @@ class DriveToBall(object):
 					self.to_goal.turn()
 					continue
 
-				# y_ball = ball_coordinates[1]
-				# not working this way
-				'''if goal_coordinates != -1 and goal_coordinates[1] < y_ball + 5:
+				yellow_coordinates = coordinates["yellow"]
+				blue_coordinates = coordinates["blue"]
+				print(blue_coordinates)
+				if blue_coordinates != -1:
+					print(blue_coordinates[2])
+
+				if (yellow_coordinates != -1 and yellow_coordinates[2] > 400) or (blue_coordinates != -1 and blue_coordinates[2] > 400):
 					print("goal too close!")
-					self.driver.circle()'''
+					self.drive_controller.stop()
+					self.turn_around()
 
 				black_coordinates = coordinates["black"]
 
@@ -56,3 +64,9 @@ class DriveToBall(object):
 
 				if self.i > 15:
 					drive_to_goal(self.get_coordinates, self.drive_controller, self.mainboard_controller)
+
+	def turn_around(self):
+		self.drive_controller.circle(5)
+		self.mainboard_controller.ping()
+		sleep(0.5)
+		self.mainboard_controller.ping()

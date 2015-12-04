@@ -7,7 +7,7 @@ from datetime import datetime
 st = BoltSettings()
 settingsDict = st.read_dict()
 # opg = settingsDict['own_goal_color']
-opg = "ball"
+opg = "yellow"
 
 
 def nothing():
@@ -104,7 +104,7 @@ while True:
 		cnt = contours[0]
 		M = cv2.moments(cnt)
 		rect = cv2.minAreaRect(cnt)
-		# print("rect: ", rect)
+		print("rect: ", rect[1][1])
 		try:
 			cx = int(M['m10']/M['m00'])
 			cy = int(M['m01']/M['m00'])
