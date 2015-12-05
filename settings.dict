@@ -1,5 +1,5 @@
-own_goal_color,yellow
-opponent_goal_color,blue
+own_goal_color,blue
+opponent_goal_color,yellow
 H_low_yellow,22
 H_top_yellow,35
 S_low_yellow,145

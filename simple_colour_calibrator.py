@@ -7,7 +7,7 @@ from datetime import datetime
 st = BoltSettings()
 settingsDict = st.read_dict()
 # opg = settingsDict['own_goal_color']
-opg = "yellow"
+opg = "ball"
 
 
 def nothing():

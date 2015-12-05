@@ -7,9 +7,9 @@ import threading
 
 __author__ = 'Gabriel'
 
-referee_controller = RefereeController(game_status=False)
-mainboard_controller = MainBoardController()
 motor_controller = MotorController()
+referee_controller = RefereeController(motor_controller, game_status=False)
+mainboard_controller = MainBoardController()
 drive_controller = DriveController(mainboard_controller, motor_controller)
 drive_to_ball = DriveToBall(mainboard_controller, drive_controller, referee_controller)
 
@@ -31,7 +31,7 @@ try:
 			mainboard_controller.charge()
 			print("received go signal")
 			if initial:
-				drive_controller.drive_forward()
+				#drive_controller.drive_forward()
 				initial = False
 			drive_to_ball.drive_to_ball()
 

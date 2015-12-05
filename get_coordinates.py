@@ -24,7 +24,7 @@ class GetCoordinates:
 		if not ret:
 			print("No image")
 			print(frame)
-			return -1
+			return {"ball": -1, "blue": -1, "yellow": -1, "black": -1}
 
 		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 		colours = ["black", "blue", "yellow", "ball"]
@@ -52,18 +52,19 @@ class GetCoordinates:
 			_, contours, _ = cv2.findContours(dilated, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
 			# Getting the biggest blob's coordinates (that is probably the closest object)
-			biggest_width = 0
+			biggest_area = 0
 			coordinates = -1
 			for cnt in contours:
 				# width = cv2.contourArea(cnt)
 				rect = cv2.minAreaRect(cnt)
 				width = rect[1][0]
 				height = rect[1][1]
+				area = width * height
 
 				if width < 5 and (colour == "yellow" or colour == "blue"):
 					continue
 
-				if width > biggest_width:
+				if area > biggest_area:
 					moment = cv2.moments(cnt)
 					try:
 						cx = int(moment['m10']/moment['m00'])
@@ -71,7 +72,7 @@ class GetCoordinates:
 					except ZeroDivisionError:
 						print("zero division")
 						continue
-					biggest_width = width
+					biggest_area = area
 					if colour == "ball":
 						black = coordinates_dict["black"]
 						# print("black: " + str(black))
